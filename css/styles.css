@@ -1,0 +1,249 @@
+/* ----------------------------
+   BASE & TYPOGRAPHY (DARK MODE)
+---------------------------- */
+
+:root {
+  /* Dark mode palette */
+  --bg: #2a2b2a; /* user requested background */
+  --surface: #303130; /* slightly lighter surface */
+  --card-bg: #343634;
+  --border: #3f403f;
+  --text: #e6e6e6;
+  --muted: #bdbdbd;
+  --accent: #4ea8ff;
+  --accent-strong: #2f8fe6;
+
+  --font-body: "Inter", Arial, sans-serif;
+  --font-heading: "Roboto Slab", serif;
+
+  --max-width: 1200px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.7;
+}
+
+/* ----------------------------
+   HEADER
+---------------------------- */
+
+.site-header {
+  background: transparent;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  padding: 0.75rem 0;
+}
+
+.site-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.site-logo {
+  font-family: var(--font-heading);
+  font-size: 1.7rem;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.site-logo img {
+  height: 48px;
+}
+
+.site-nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1.75rem;
+}
+
+.site-nav a {
+  text-decoration: none;
+  font-size: 1rem;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.site-nav a:hover,
+.site-nav a:focus {
+  color: var(--accent-strong);
+}
+
+/* ----------------------------
+   HERO / LEAD
+---------------------------- */
+
+.hero {
+  padding: 4rem 0;
+  background: transparent;
+  text-align: center;
+}
+
+.hero h2 {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  color: var(--accent);
+}
+
+.hero p {
+  max-width: 750px;
+  margin: 1rem auto;
+  font-size: 1.15rem;
+  color: var(--muted);
+}
+
+/* ----------------------------
+   CONTENT AREAS
+---------------------------- */
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* SECTION TITLES */
+h2.section-title {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+/* TEXT BLOCKS */
+.section-text {
+  margin-bottom: 2rem;
+  color: var(--muted);
+}
+
+/* ----------------------------
+   FEATURED CARDS
+---------------------------- */
+
+.featured-cards {
+  padding: 2.5rem 0;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.75rem;
+  margin-top: 1.75rem;
+}
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  padding: 1.75rem;
+  transition: transform 0.16s ease, box-shadow 0.16s ease;
+}
+
+.card h4 {
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+  color: var(--accent);
+}
+
+.card p {
+  margin: 0.75rem 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.card a {
+  color: var(--accent-strong);
+  font-weight: 500;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* ----------------------------
+   FORMS
+---------------------------- */
+
+form {
+  margin-top: 1.75rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 0.65rem;
+  margin-bottom: 1rem;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 1rem;
+}
+
+button {
+  background: var(--accent);
+  color: #0b0b0b;
+  border: none;
+  padding: 0.65rem 1.4rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button:hover,
+button:focus {
+  background: var(--accent-strong);
+}
+
+/* ----------------------------
+   FOOTER
+---------------------------- */
+
+.site-footer {
+  background: #1f201f;
+  color: var(--muted);
+  padding: 2rem 0;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.site-footer a {
+  color: var(--muted);
+  text-decoration: underline;
+}
+
+/* ----------------------------
+   RESPONSIVE
+---------------------------- */
+
+@media (max-width: 768px) {
+  .hero h2 {
+    font-size: 2rem;
+  }
+
+  .site-nav ul {
+    gap: 1rem;
+  }
+}
