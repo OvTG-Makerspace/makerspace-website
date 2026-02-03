@@ -23,7 +23,8 @@
         express \
         express-handlebars \
         nodemailer \
-        nodemailer-express-handlebars
+        nodemailer-express-handlebars \
+        fs-extra
     fi
   '';
 }
