@@ -51,6 +51,12 @@ app.get("/contact", (req, res) => {
     title: "Contact Page",
   });
 });
+
+app.get("/courses", (req, res) => {
+  res.render("courses", {
+    title: "Courses",
+  });
+});
 /* ========================================================= */
 
 /* -----------------------------
