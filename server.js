@@ -29,6 +29,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
+
 /* =========================================================
    ROUTES — COPY / PASTE THIS SECTION TO ADD NEW PAGES
    Each route renders a different .hbs template
