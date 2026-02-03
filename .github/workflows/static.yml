@@ -23,19 +23,31 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      # Checkout repository (includes pre-built dist/)
+      # Checkout repository
       - name: Checkout
         uses: actions/checkout@v4
+
+      # Setup Node and install dependencies so we can build the static site
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build static site
+        run: npm run build
 
       # Configure GitHub Pages
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
-      # Upload ONLY the static site output
+      # Upload the generated static site (docs/)
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: docs
 
       # Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
