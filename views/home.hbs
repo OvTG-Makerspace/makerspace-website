@@ -1,3 +1,6 @@
+<script src="/js/carousel.js" defer></script>
+
+
 <section class="hero">
     <div class="container">
         <h2>Willkommen auf unserer Website</h2>
@@ -5,23 +8,43 @@
     </div>
 </section>
 
+ 
+<section class="carousel-section">
+    <div class="carousel">
+        <button id="left-btn" class="carousel-btn" aria-label="Previous slide">
+            <i class="arrow"></i>
+        </button>
+
+        <a id="carousel-link" class="carousel-link" href="#">
+            <img id="carousel" src="" alt="">
+            <div class="carousel-caption">
+                <h2 id="carousel-title"></h2>
+                <p id="carousel-subtitle"></p>
+            </div>
+        </a>
+
+        <button id="right-btn" class="carousel-btn" aria-label="Next slide">
+            <i class="arrow"></i>
+        </button>
+    </div>
+</section>
+    
 <section class="featured-cards container">
-    <h3>Highlights</h3>
     <div class="card-grid">
-        <div class="card">
+        <a href="/about" class="card">
             <h4>Bereich Eins</h4>
             <p>Platzhalter-Inhalt für Highlights oder Neuigkeiten.</p>
-            <a href="/about">Mehr erfahren</a>
-        </div>
-        <div class="card">
-            <h4>Bereich Zwei</h4>
-            <p>Platzhalter-Inhalt für Aktivitäten, Kurse oder Projekte.</p>
-            <a href="/courses">Kurse ansehen</a>
-        </div>
-        <div class="card">
-            <h4>Bereich Drei</h4>
-            <p>Platzhalter-Inhalt für kommende Veranstaltungen oder Hinweise.</p>
-            <a href="/contact">Kontakt aufnehmen</a>
-        </div>
+            <span> Mehr Erfahren </span>
+        </a>
+        <a href="/courses" class="card">
+            <h4>Bereich Eins</h4>
+            <p>Platzhalter-Inhalt für Highlights oder Neuigkeiten.</p>
+            <span> Mehr Erfahren </span>
+        </a>    
+        <a href="/contact" class="card">
+            <h4>Bereich Eins</h4>
+            <p>Platzhalter-Inhalt für Highlights oder Neuigkeiten.</p>
+            <span> Mehr Erfahren </span>
+        </a>
     </div>
 </section>
