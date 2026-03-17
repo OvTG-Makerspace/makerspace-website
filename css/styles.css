@@ -4,8 +4,8 @@
 
 :root {
   /* Dark mode palette */
-  --bg: #2a2b2a; /* user requested background */
-  --surface: #303130; /* slightly lighter surface */
+  --bg: #ffffff; /* user requested background */
+  --surface: #ebeceb; /* slightly lighter surface */
   --card-bg: #343634;
   --border: #3f403f;
   --text: #e6e6e6;
@@ -147,7 +147,7 @@ h2.section-title {
 }
 
 .card {
-  background: var(--card-bg);
+  background: var(--text);
   border: 1px solid var(--border);
   padding: 1.75rem;
   transition: transform 0.16s ease, box-shadow 0.16s ease;
@@ -156,12 +156,12 @@ h2.section-title {
 .card h4 {
   margin-bottom: 0.5rem;
   font-size: 1.1rem;
-  color: var(--accent);
+  color: var(--text);
 }
 
 .card p {
   margin: 0.75rem 0;
-  color: var(--muted);
+  color: var(--text);
   font-size: 0.95rem;
 }
 
