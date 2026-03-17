@@ -3,12 +3,27 @@
 const express = require("express");
 const path = require("path");
 const fs = require("fs");
+const nodemailer = require("nodemailer");
 const exphbs = require("express-handlebars");
+
+require("dotenv").config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 const DATA_PATH = path.join(__dirname, "data", "carousel.csv");
 const CONTENT_DIR = path.join(__dirname, "content");
+
+const smtpPort = Number(process.env.SMTP_PORT || 1025);
+const smtpSecure = String(process.env.SMTP_SECURE || "false").toLowerCase() === "true";
+const smtpUser = process.env.SMTP_USER || "";
+const smtpPass = process.env.SMTP_PASS || "";
+
+const transporter = nodemailer.createTransport({
+  host: process.env.SMTP_HOST || "127.0.0.1",
+  port: Number.isFinite(smtpPort) ? smtpPort : 1025,
+  secure: smtpSecure,
+  auth: smtpUser ? { user: smtpUser, pass: smtpPass } : undefined,
+});
 
 class CarouselEntry {
   constructor({ image, title, subtitle, main, route }) {
@@ -183,6 +198,42 @@ app.get("/contact", (req, res) => {
   res.render("contact", {
     title: "Contact",
   });
+});
+
+app.post("/contact", async (req, res) => {
+  const name = String(req.body.name || "").trim();
+  const email = String(req.body.email || "").trim();
+  const message = String(req.body.message || "").trim();
+
+  if (!name || !email || !message) {
+    return res.render("contact", {
+      title: "Contact",
+      error: "Bitte füllen Sie alle Felder aus.",
+      form: { name, email, message },
+    });
+  }
+
+  try {
+    await transporter.sendMail({
+      to: process.env.ADMIN_EMAIL || "admin@example.com",
+      from: process.env.SMTP_FROM || email,
+      replyTo: email,
+      subject: `Kontaktanfrage von ${name}`,
+      text: `Name: ${name}\nE-Mail: ${email}\n\nNachricht:\n${message}`,
+    });
+
+    return res.render("contact", {
+      title: "Contact",
+      success: "Vielen Dank! Ihre Nachricht wurde gesendet.",
+    });
+  } catch (err) {
+    console.error("Contact form email failed:", err);
+    return res.render("contact", {
+      title: "Contact",
+      error: "Es gab ein Problem beim Senden der Nachricht. Bitte versuchen Sie es erneut.",
+      form: { name, email, message },
+    });
+  }
 });
 
 app.get("/courses", (req, res) => {

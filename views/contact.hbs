@@ -1,17 +1,42 @@
-<section class="contact container">
-    <h2>Kontakt</h2>
-    <p>Verwenden Sie das Formular unten, um uns zu erreichen — Platzhaltertext.</p>
+<section class="contact">
+    <div class="container">
+        <div class="contact-hero">
+            <h2>Kontakt</h2>
+            <p>Schreiben Sie uns eine Nachricht – wir melden uns schnellstmöglich.</p>
+        </div>
 
-    <form action="/send-message" method="POST">
-        <label for="name">Ihr Name</label>
-        <input type="text" id="name" name="name" placeholder="Geben Sie Ihren Namen ein" />
+        {{#if success}}
+            <div class="notice notice-success">{{success}}</div>
+        {{/if}}
+        {{#if error}}
+            <div class="notice notice-error">{{error}}</div>
+        {{/if}}
 
-        <label for="email">E-Mail</label>
-        <input type="email" id="email" name="email" placeholder="Geben Sie Ihre E-Mail-Adresse ein" />
+        <div class="contact-grid">
+            <div class="contact-card contact-info">
+                <h3>So erreichen Sie uns</h3>
+                <p>Wir freuen uns auf Ihre Ideen, Projekte und Fragen.</p>
+                <ul>
+                    <li><strong>E-Mail:</strong> info@makerspace.local</li>
+                    <li><strong>Standort:</strong> Beispielstraße 12, 00000 Musterstadt</li>
+                    <li><strong>Öffnungszeiten:</strong> Mo–Fr 14:00–20:00</li>
+                </ul>
+            </div>
 
-        <label for="message">Nachricht</label>
-        <textarea id="message" name="message" placeholder="Ihre Nachricht hier"></textarea>
+            <div class="contact-card">
+                <form action="/contact" method="POST">
+                    <label for="name">Ihr Name</label>
+                    <input type="text" id="name" name="name" placeholder="Geben Sie Ihren Namen ein" value="{{form.name}}" required />
 
-        <button type="submit">Nachricht senden</button>
-    </form>
+                    <label for="email">E-Mail</label>
+                    <input type="email" id="email" name="email" placeholder="Geben Sie Ihre E-Mail-Adresse ein" value="{{form.email}}" required />
+
+                    <label for="message">Nachricht</label>
+                    <textarea id="message" name="message" placeholder="Ihre Nachricht hier" required>{{form.message}}</textarea>
+
+                    <button type="submit">Nachricht senden</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </section>

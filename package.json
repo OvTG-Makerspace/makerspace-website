@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/OvTG-Makerspace/makerspace-website#readme",
   "dependencies": {
+    "dotenv": "^16.6.1",
     "express": "^5.2.1",
     "express-handlebars": "^8.0.4",
     "fs-extra": "^11.3.3",
