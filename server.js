@@ -36,19 +36,19 @@ app.use(express.static(path.join(__dirname, "public")));
    ========================================================= */
 app.get("/", (req, res) => {
   res.render("home", {
-    title: "Home Page",
+    title: "Home",
   });
 });
 
 app.get("/about", (req, res) => {
   res.render("about", {
-    title: "About Page",
+    title: "About",
   });
 });
 
 app.get("/contact", (req, res) => {
   res.render("contact", {
-    title: "Contact Page",
+    title: "Contact",
   });
 });
 
