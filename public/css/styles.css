@@ -4,19 +4,162 @@
 
 :root {
   /* Dark mode palette */
-  --bg: #2a2b2a; /* user requested background */
-  --surface: #303130; /* slightly lighter surface */
-  --card-bg: #343634;
-  --border: #3f403f;
-  --text: #e6e6e6;
-  --muted: #bdbdbd;
-  --accent: #4ea8ff;
-  --accent-strong: #2f8fe6;
+   --bg: #ffffff; /* user requested background */
+  --surface: #ebeceb; /* slightly lighter surface */
+ --card-bg: #0bd02c;
+  --border: #3f403f00;
+  --text: #707070;
+  --muted: #707070;
+  --accent: #0bd02c;
+  --accent-strong: #707070;
 
   --font-body: "Inter", Arial, sans-serif;
-  --font-heading: "Roboto Slab", serif;
+  --font-heading: "Roboto Slab", sans-serif;
 
   --max-width: 1200px;
+}
+
+.carousel-btn {
+    border: none;
+    outline: none;
+    background: rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    padding: 1em;
+    display: flex;
+}
+
+.carousel-btn .arrow {
+    border: solid #fff;
+    border-width: 0 4px 4px 0;
+    display: inline-block;
+    padding: 10px;
+    transition: transform 0.3s ease-out;
+    outline: none;
+}
+
+#right-btn {
+    margin: auto 0 auto -2em;
+}
+
+#right-btn .arrow {
+    transform: rotate(-45deg);
+}
+
+#left-btn {
+    z-index: 0;
+    margin: auto -2em auto 0;
+}
+
+#left-btn .arrow {
+    transform: rotate(135deg);
+}
+
+/* ----------------------------
+   CAROUSEL
+---------------------------- */
+
+.carousel-section {
+  width: 100%;
+  margin: 2rem 0 3rem;
+}
+
+.carousel {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.carousel-link {
+  position: relative;
+  display: block;
+  width: 100%;
+  color: #fff;
+  text-decoration: none;
+}
+
+.carousel-link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0));
+  pointer-events: none;
+}
+
+#carousel {
+  width: 100%;
+  height: 60vh;
+  min-height: 320px;
+  max-height: 600px;
+  object-fit: cover;
+  display: block;
+}
+
+.carousel-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.55);
+  padding: 1.25rem 5vw 1.5rem;
+}
+
+.carousel-caption h2 {
+  font-family: var(--font-heading);
+  font-size: clamp(1.75rem, 3vw, 2.75rem);
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.carousel-caption p {
+  font-size: clamp(1rem, 1.6vw, 1.25rem);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+  background: rgba(0, 0, 0, 0.45);
+  border: none;
+  width: 52px;
+  height: 52px;
+  border-radius: 999px;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+#left-btn {
+  left: 1rem;
+  margin: 0;
+}
+
+#right-btn {
+  right: 1rem;
+  margin: 0;
+}
+
+.carousel-btn:hover,
+.carousel-btn:focus {
+  background: rgba(0, 0, 0, 0.65);
+}
+
+.hvr-box-shadow-outset {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: box-shadow;
+  transition-property: box-shadow;
+}
+.hvr-box-shadow-outset:hover, .hvr-box-shadow-outset:focus, .hvr-box-shadow-outset:active {
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.6);
 }
 
 *,
@@ -146,17 +289,40 @@ h2.section-title {
   margin-top: 1.75rem;
 }
 
-.card {
+.card:before {
   background: var(--card-bg);
   border: 1px solid var(--border);
   padding: 1.75rem;
-  transition: transform 0.16s ease, box-shadow 0.16s ease;
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: -30;
+  left: -5;
+  right: -300;
+  bottom: -5;
+  background: #2098D1;
+  border-radius: 100%;
+  -webkit-transform: scale(2);
+  transform: scale(2);
+  -webkit-transition-property: transform;
+  transition-property: transform;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+}
+.card:hover, .card:focus, .card:active {
+  color: white;
+}
+.card:hover:before, .card:focus:before, .card:active:before {
+  -webkit-transform: scale(2);
+  transform: scale(6);
 }
 
 .card h4 {
   margin-bottom: 0.5rem;
   font-size: 1.1rem;
-  color: var(--accent);
+  color: var(--text);
 }
 
 .card p {
@@ -170,10 +336,7 @@ h2.section-title {
   font-weight: 500;
 }
 
-.card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-}
+
 
 /* ----------------------------
    FORMS
@@ -202,7 +365,7 @@ textarea {
   font-size: 1rem;
 }
 
-button {
+button:not(.carousel-btn) {
   background: var(--accent);
   color: #0b0b0b;
   border: none;
@@ -212,8 +375,8 @@ button {
   cursor: pointer;
 }
 
-button:hover,
-button:focus {
+button:not(.carousel-btn):hover,
+button:not(.carousel-btn):focus {
   background: var(--accent-strong);
 }
 
