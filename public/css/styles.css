@@ -37,20 +37,11 @@
     outline: none;
 }
 
-#right-btn {
-    margin: auto 0 auto -2em;
-}
-
-#right-btn .arrow {
+.carousel #right-btn .arrow {
     transform: rotate(-45deg);
 }
 
-#left-btn {
-    z-index: 0;
-    margin: auto -2em auto 0;
-}
-
-#left-btn .arrow {
+.carousel #left-btn .arrow {
     transform: rotate(135deg);
 }
 
@@ -190,12 +181,15 @@ body {
   background: transparent;
   border-bottom: 1px solid rgba(255,255,255,0.04);
   padding: 0.75rem 0;
+  width: 100%;
 }
 
 .site-header .container {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  max-width: 100%;
+  padding: 0 2rem;
 }
 
 .site-logo {
