@@ -23,30 +23,57 @@ const renderSlide = (index) => {
     link.href = slide.href;
 };
 
+let isTransitioning = false;
+
+const transitionTo = (index, direction) => {
+    if (isTransitioning) return;
+    isTransitioning = true;
+
+    const exitClass = direction === 'right' ? 'slide-out-left' : 'slide-out-right';
+    const enterClass = direction === 'right' ? 'slide-in-right' : 'slide-in-left';
+
+    img.classList.remove('slide-in-left', 'slide-in-right', 'slide-out-left', 'slide-out-right', 'slide-active');
+    img.classList.add(exitClass);
+
+    setTimeout(() => {
+        renderSlide(index);
+        img.classList.remove(exitClass);
+        img.classList.add(enterClass);
+        void img.offsetWidth;
+        img.classList.add('slide-active');
+
+        setTimeout(() => {
+            img.classList.remove(enterClass);
+            isTransitioning = false;
+        }, 220);
+    }, 180);
+};
+
 if (slides.length > 0) {
     renderSlide(position);
+    img.classList.add('slide-active');
 }
 
 const moveRight = () => {
     if (slides.length === 0) return;
     if (position >= slides.length - 1) {
-        position = 0
-        renderSlide(position);
+        position = 0;
+        transitionTo(position, 'right');
         return;
     }
     position++;
-    renderSlide(position);
+    transitionTo(position, 'right');
 }
 
 const moveLeft = () => {
     if (slides.length === 0) return;
     if (position < 1) {
         position = slides.length - 1;
-        renderSlide(position);
+        transitionTo(position, 'left');
         return;
     }
     position--;
-    renderSlide(position);
+    transitionTo(position, 'left');
 }
 
 rightBtn.addEventListener("click", moveRight);

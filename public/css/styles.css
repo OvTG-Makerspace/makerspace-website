@@ -84,6 +84,30 @@
   max-height: 600px;
   object-fit: cover;
   display: block;
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+#carousel.slide-out-left {
+  opacity: 0;
+  transform: translateX(-24px);
+}
+
+#carousel.slide-out-right {
+  opacity: 0;
+  transform: translateX(24px);
+}
+
+#carousel.slide-in-left,
+#carousel.slide-in-right {
+  opacity: 0;
+  transform: translateX(0);
+}
+
+#carousel.slide-active {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 .carousel-caption {
