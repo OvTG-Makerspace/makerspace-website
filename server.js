@@ -5,6 +5,8 @@ const path = require("path");
 const fs = require("fs");
 const nodemailer = require("nodemailer");
 const exphbs = require("express-handlebars");
+const hbsMailerImport = require("nodemailer-express-handlebars");
+const hbsMailer = typeof hbsMailerImport === "function" ? hbsMailerImport : hbsMailerImport.default;
 
 require("dotenv").config();
 
@@ -17,6 +19,8 @@ const smtpPort = Number(process.env.SMTP_PORT || 1025);
 const smtpSecure = String(process.env.SMTP_SECURE || "false").toLowerCase() === "true";
 const smtpUser = process.env.SMTP_USER || "";
 const smtpPass = process.env.SMTP_PASS || "";
+const smtpFrom = process.env.SMTP_FROM || "no-reply@makerspace.ovtg.de";
+const adminEmail = process.env.ADMIN_EMAIL || "admin@example.com";
 
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST || "127.0.0.1",
@@ -24,6 +28,30 @@ const transporter = nodemailer.createTransport({
   secure: smtpSecure,
   auth: smtpUser ? { user: smtpUser, pass: smtpPass } : undefined,
 });
+
+if (typeof hbsMailer !== "function") {
+  throw new Error("nodemailer-express-handlebars did not export a function (check module format/version).");
+}
+
+transporter.use("compile", hbsMailer({
+  viewEngine: {
+    extname: ".hbs",
+    layoutsDir: path.join(__dirname, "views"),
+    defaultLayout: false,
+    partialsDir: path.join(__dirname, "views/partials"),
+  },
+  viewPath: path.join(__dirname, "views/emails"),
+  extName: ".hbs",
+}));
+
+function stripHeaderNewlines(value) {
+  return String(value || "").replace(/[\r\n]+/g, " ").trim();
+}
+
+function isLikelyEmail(value) {
+  const v = String(value || "").trim();
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+}
 
 class CarouselEntry {
   constructor({ image, title, subtitle, main, route }) {
@@ -213,13 +241,30 @@ app.post("/contact", async (req, res) => {
     });
   }
 
+  if (!isLikelyEmail(email)) {
+    return res.render("contact", {
+      title: "Contact",
+      error: "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
+      form: { name, email, message },
+    });
+  }
+
   try {
     await transporter.sendMail({
-      to: process.env.ADMIN_EMAIL || "admin@example.com",
-      from: process.env.SMTP_FROM || email,
-      replyTo: email,
-      subject: `Kontaktanfrage von ${name}`,
-      text: `Name: ${name}\nE-Mail: ${email}\n\nNachricht:\n${message}`,
+      to: adminEmail,
+      from: stripHeaderNewlines(smtpFrom),
+      replyTo: stripHeaderNewlines(email),
+      subject: stripHeaderNewlines(`Kontaktanfrage von ${name}`),
+      template: "contact",
+      context: {
+        submittedAt: new Date().toISOString(),
+        name,
+        email,
+        message,
+        ip: req.ip,
+        userAgent: req.get("user-agent") || "",
+      },
+      text: `Neue Kontaktanfrage\n\nName: ${name}\nE-Mail: ${email}\n\nNachricht:\n${message}\n\nIP: ${req.ip}\nUser-Agent: ${req.get("user-agent") || ""}\n`,
     });
 
     return res.render("contact", {
