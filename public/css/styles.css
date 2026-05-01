@@ -594,6 +594,15 @@ button:not(.carousel-btn):active {
   background: var(--surface);
 }
 
+.main-photo {
+  width: 75%;
+  height: 75%;
+  object-fit: cover;
+  display: block;
+  margin-bottom: 1rem;
+  background: var(--surface);
+}
+
 /* ----------------------------
    404
 ---------------------------- */
