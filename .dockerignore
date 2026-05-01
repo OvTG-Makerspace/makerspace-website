@@ -1,0 +1,10 @@
+node_modules
+npm-debug.log
+docs
+.devenv
+.direnv
+.git
+.gitignore
+.env
+devenv.lock
+
