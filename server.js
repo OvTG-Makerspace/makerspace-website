@@ -183,20 +183,20 @@ app.get("/", (req, res) => {
     }))
   );
   res.render("home", {
-    title: "Home",
+    title: "Startseite",
     slidesJson,
   });
 });
 
 app.get("/about", (req, res) => {
   res.render("about", {
-    title: "About",
+    title: "Über Uns",
   });
 });
 
 app.get("/contact", (req, res) => {
   res.render("contact", {
-    title: "Contact",
+    title: "Kontakt",
   });
 });
 
@@ -238,7 +238,7 @@ app.post("/contact", async (req, res) => {
 
 app.get("/courses", (req, res) => {
   res.render("courses", {
-    title: "Courses",
+    title: "Kurse",
   });
 });
 
