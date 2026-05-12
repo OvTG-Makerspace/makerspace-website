@@ -7,7 +7,7 @@
    --bg: #ffffff; /* user requested background */
   --surface: #ebeceb; /* slightly lighter surface */
  --card-bg: #0bd02c;
-  --border: #3f403f00;
+  --border: #bdbdbd;
   --text: #707070;
   --muted: #707070;
   --accent: #0bd02c;
@@ -203,7 +203,7 @@ body {
 
 .site-header {
   background: transparent;
-  border-bottom: 1px solid rgba(255,255,255,0.04);
+  border-bottom: 1px solid var(--border);
   padding: 0.75rem 0;
   width: 100%;
 }
@@ -331,11 +331,18 @@ h2.section-title {
 }
 
 .sponsor-logo {
-  border: 1px solid var(--border);
   padding: 1.2rem;
   text-align: center;
   color: var(--muted);
   background: var(--bg);
+}
+
+.sponsor-image {
+  max-width: 100%;
+  max-height: 60px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
 }
 
 /* ----------------------------
@@ -348,7 +355,7 @@ h2.section-title {
 
 .calendar-embed {
   margin-top: 1.5rem;
-  border: 1px solid var(--border);
+  border: none;
   background: var(--bg);
 }
 
@@ -363,7 +370,7 @@ h2.section-title {
   display: block;
   position: relative;
   background: var(--accent);
-  border: 1px solid var(--border);
+  border: none;
   padding: 1.75rem;
   color: #ffffff;
   text-decoration: none;
@@ -422,7 +429,7 @@ textarea {
   width: 100%;
   padding: 0.65rem;
   margin-bottom: 1rem;
-  border: 1px solid var(--border);
+  border: none;
   background: transparent;
   color: var(--text);
   font-family: var(--font-body);
@@ -504,7 +511,7 @@ button:not(.carousel-btn):active {
 
 .contact-card {
   background: var(--bg);
-  border: 1px solid var(--border);
+  border: none;
   padding: 1.75rem;
   border-radius: 0;
   box-shadow: none;
@@ -563,7 +570,7 @@ button:not(.carousel-btn):active {
 }
 
 .about-block {
-  border: 1px solid var(--border);
+  border: none;
   padding: 1.5rem;
   background: var(--bg);
 }
@@ -579,7 +586,7 @@ button:not(.carousel-btn):active {
 }
 
 .team-card {
-  border: 1px solid var(--border);
+  border: none;
   padding: 1.5rem;
   background: var(--bg);
   text-align: left;
@@ -612,7 +619,7 @@ button:not(.carousel-btn):active {
 }
 
 .not-found-panel {
-  border: 1px solid var(--border);
+  border: none;
   padding: 2rem;
   background: var(--bg);
   text-align: center;
@@ -657,7 +664,7 @@ button:not(.carousel-btn):active {
   margin-top: 2rem;
   padding: 1rem 1.25rem;
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: none;
   color: var(--text);
   font-family: "Courier New", monospace;
   font-size: 0.95rem;
