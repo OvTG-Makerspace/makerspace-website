@@ -10,34 +10,41 @@
 </head>
 <body>
 
-<header class="site-header">
-  <div class="container">
-    <a href="/" class="site-logo">
-      <img src="/logos/main-logo-large.webp" alt="OvTG Makerspace Logo" style="width: 230px; height: auto;" />
-    </a>
+	<header class="site-header">
+	  <div class="container">
+	    <a href="/" class="site-logo">
+	      <img src="/logos/main-logo-large.webp" alt="OvTG Makerspace Logo" style="width: 230px; height: auto;" />
+	    </a>
 
-    <nav class="site-nav">
-      <ul>
-        <li><a href="/">Startseite</a></li>
-        <li><a href="/about">Über uns</a></li>
-        <li><a href="/contact">Kontakt</a></li>
-        <li><a href="/courses">Kurse</a></li>
-      </ul>
-    </nav>
-  </div>
-</header>
+	    <button class="nav-toggle" type="button" aria-label="Menü" aria-expanded="false" aria-controls="site-nav-list">
+	      <span class="nav-toggle-bar"></span>
+	      <span class="nav-toggle-bar"></span>
+	      <span class="nav-toggle-bar"></span>
+	    </button>
+	
+	    <nav class="site-nav">
+	      <ul id="site-nav-list">
+	        <li><a href="/">Startseite</a></li>
+	        <li><a href="/about">Über uns</a></li>
+	        <li><a href="/contact">Kontakt</a></li>
+	        <li><a href="/courses">Kurse</a></li>
+	      </ul>
+	    </nav>
+	  </div>
+	</header>
 
 <main class="site-main">
     {{{body}}}
 </main>
 
-<footer class="site-footer">
-    <div class="container">
-        <p>© 2026 OvTG Makerspace • Alle Rechte vorbehalten.</p>
-        <a href="https://github.com/OvTG-Makerspace/makerspace-website" target="_blank" rel="noopener">GitHub Source</a>
-        <small>Platzhalter Fußzeile</small>
-    </div>
-</footer>
+	<footer class="site-footer">
+	    <div class="container">
+	        <p>© 2026 OvTG Makerspace • Alle Rechte vorbehalten.</p>
+	        <a href="https://github.com/OvTG-Makerspace/makerspace-website" target="_blank" rel="noopener">GitHub Source</a>
+	        <small>Platzhalter Fußzeile</small>
+	    </div>
+	</footer>
 
-</body>
-</html>
+	<script src="/js/nav.js" defer></script>
+	</body>
+	</html>

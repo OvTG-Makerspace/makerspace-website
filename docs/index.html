@@ -8,22 +8,28 @@
 </head>
 <body>
 
-<header class="site-header">
-  <div class="container">
-    <a href="/makerspace-website/" class="site-logo">
-      <img src="/makerspace-website/logos/main-logo.webp" alt="OvTG Makerspace Logo" />
-    </a>
+	<header class="site-header">
+	  <div class="container">
+	    <a href="/makerspace-website/" class="site-logo">
+	      <img src="/makerspace-website/logos/main-logo.webp" alt="OvTG Makerspace Logo" />
+	    </a>
 
-    <nav class="site-nav">
-      <ul>
-        <li><a href="/makerspace-website/">Startseite</a></li>
-        <li><a href="/makerspace-website/about">Über uns</a></li>
-        <li><a href="/makerspace-website/contact">Kontakt</a></li>
-        <li><a href="/makerspace-website/courses">Kurse</a></li>
-      </ul>
-    </nav>
-  </div>
-</header>
+	    <button class="nav-toggle" type="button" aria-label="Menü" aria-expanded="false" aria-controls="site-nav-list">
+	      <span class="nav-toggle-bar"></span>
+	      <span class="nav-toggle-bar"></span>
+	      <span class="nav-toggle-bar"></span>
+	    </button>
+	
+	    <nav class="site-nav">
+	      <ul id="site-nav-list">
+	        <li><a href="/makerspace-website/">Startseite</a></li>
+	        <li><a href="/makerspace-website/about">Über uns</a></li>
+	        <li><a href="/makerspace-website/contact">Kontakt</a></li>
+	        <li><a href="/makerspace-website/courses">Kurse</a></li>
+	      </ul>
+	    </nav>
+	  </div>
+	</header>
 
 <main class="site-main">
     <section class="hero">
@@ -55,12 +61,13 @@
 </section>
 </main>
 
-<footer class="site-footer">
+	<footer class="site-footer">
     <div class="container">
         <p>© 2026 OvTG Makerspace • Alle Rechte vorbehalten.</p>
         <small>Platzhalter Fußzeile</small>
     </div>
-</footer>
+	</footer>
 
-</body>
-</html>
+	<script src="/makerspace-website/js/nav.js" defer></script>
+	</body>
+	</html>
