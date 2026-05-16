@@ -128,11 +128,23 @@ const slidesJson = JSON.stringify(
   }))
 );
 
+const helpArticles = [
+  { href: "/help/join", title: "Mitmachen", desc: "So kannst du beitreten und loslegen." },
+  { href: "/help/where-to-go", title: "Wo musst du hin?", desc: "Ort, Zugang und Zeiten." },
+  { href: "/help/what-you-can-do", title: "Was kannst du machen?", desc: "Projekte, Ideen und Aktivitäten." },
+  { href: "/help/how-it-works", title: "Wie läuft’s ab?", desc: "Ablauf, Regeln und Tipps." },
+];
+
 const pages = [
   { template: "home", out: "index.html", data: { title: "Home", slidesJson } },
   { template: "about", outDir: "about" },
-  { template: "contact", outDir: "contact" },
+  { template: "contact", outDir: "contact", data: { helpArticles } },
   { template: "courses", outDir: "courses" },
+  { template: "help/index", outDir: "help", data: { title: "Hilfe", helpArticles } },
+  { template: "help/join", outDir: "help/join", data: { title: "Mitmachen" } },
+  { template: "help/where-to-go", outDir: "help/where-to-go", data: { title: "Wo musst du hin?" } },
+  { template: "help/what-you-can-do", outDir: "help/what-you-can-do", data: { title: "Was kannst du machen?" } },
+  { template: "help/how-it-works", outDir: "help/how-it-works", data: { title: "Wie läuft’s ab?" } },
   ...carouselEntries
     .filter((entry) => entry.route && entry.main)
     .map((entry) => ({

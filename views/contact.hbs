@@ -12,31 +12,38 @@
             <div class="notice notice-error">{{error}}</div>
         {{/if}}
 
-        <div class="contact-grid">
-            <div class="contact-card contact-info">
-                <h3>So erreichen Sie uns</h3>
-                <p>Wir freuen uns auf Ihre Ideen, Projekte und Fragen.</p>
-                <ul>
-                    <li><strong>E-Mail:</strong> info@makerspace.local</li>
-                    <li><strong>Standort:</strong> Beispielstraße 12, 00000 Musterstadt</li>
-                    <li><strong>Öffnungszeiten:</strong> Mo–Fr 14:00–20:00</li>
-                </ul>
-            </div>
-
-            <div class="contact-card">
-                <form action="/contact" method="POST">
-                    <label for="name">Ihr Name</label>
-                    <input type="text" id="name" name="name" placeholder="Geben Sie Ihren Namen ein" value="{{form.name}}" required />
-
-                    <label for="email">E-Mail</label>
-                    <input type="email" id="email" name="email" placeholder="Geben Sie Ihre E-Mail-Adresse ein" value="{{form.email}}" required />
-
-                    <label for="message">Nachricht</label>
-                    <textarea id="message" name="message" placeholder="Ihre Nachricht hier" required>{{form.message}}</textarea>
-
-                    <button type="submit">Nachricht senden</button>
-                </form>
-            </div>
+        <div class="contact-top-cta">
+            <a class="btn help-mailto-btn" href="mailto:simonkorten09@gmail.com?subject=Kontakt%20OvTG%20Makerspace" rel="nofollow">
+                {{!-- <span class="help-search-icon" aria-hidden="true">✉</span> --}}
+                <span class="help-search-text">Zur E-Mail</span>
+            </a>
         </div>
+        {{!-- <div class="contact grid">
+            <div class="contact-card contact-top">
+                <div class="contact-top-inner">
+                    <div class="contact-top-copy">
+                        <h3>So erreichen Sie uns</h3>
+                        <p>Wir freuen uns auf Ihre Ideen, Projekte und Fragen.</p>
+                        <ul>
+                            <li><strong>E-Mail:</strong> info@makerspace.local</li>
+                            <li><strong>Standort:</strong> Beispielstraße 12, 00000 Musterstadt</li>
+                            <li><strong>Öffnungszeiten:</strong> Mo–Fr 14:00–20:00</li>
+                        </ul>
+                    </div>
+                </div>
+            </div> --}}
+
+            <div class="contact-card contact-help">
+                <h3>Das Wichtigste auf einen Blick</h3>
+                <div class="help-links">
+                    {{#each helpArticles}}
+                        <a class="help-link-card btn" href="{{href}}">
+                            <h4>{{title}}</h4>
+                            <p>{{desc}}</p>
+                        </a>
+                    {{/each}}
+                </div>
+            </div>
+        {{!-- </div> --}}
     </div>
 </section>

@@ -1,0 +1,26 @@
+<section class="help">
+  <div class="container">
+    <div class="help-hero">
+      <h2>Hilfe</h2>
+      <p>Alles Wichtige rund um den Makerspace – kurz und übersichtlich.</p>
+      <div class="help-search">
+        {{!-- <a class="btn help-mailto-btn" href="mailto:simonkorten09@gmail.com?subject=Hilfe%20OvTG%20Makerspace" rel="nofollow">
+          <span class="help-search-icon" aria-hidden="true">✉</span>
+          <span class="help-search-text">E-Mail an den Makerspace schreiben</span>
+        </a> --}}
+      </div>
+    </div>
+
+      <div class="help-topics">
+      <h3 class="help-topics-title">Alle Artikel</h3>
+      <div class="help-grid">
+        {{#each helpArticles}}
+          <a class="help-card btn" href="{{href}}">
+            <h3>{{title}}</h3>
+            <p>{{desc}}</p>
+          </a>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</section>

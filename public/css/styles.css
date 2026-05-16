@@ -342,6 +342,14 @@ h2.section-title {
   margin-bottom: 1rem;
 }
 
+h2.section-title-centered {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  color: var(--accent);
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
 /* TEXT BLOCKS */
 .section-text {
   margin-bottom: 2rem;
@@ -355,6 +363,7 @@ h2.section-title {
 .home-intro {
   padding: 2.5rem 0 1rem;
 }
+
 
 /* ----------------------------
    FEATURED CARDS
@@ -492,7 +501,8 @@ textarea {
   font-size: 1rem;
 }
 
-button:not(.carousel-btn):not(.nav-toggle) {
+button:not(.carousel-btn):not(.nav-toggle),
+.btn {
   background: var(--accent);
   color: #ffffff;
   border: none;
@@ -507,14 +517,22 @@ button:not(.carousel-btn):not(.nav-toggle) {
 }
 
 button:not(.carousel-btn):not(.nav-toggle):hover,
-button:not(.carousel-btn):not(.nav-toggle):focus {
+button:not(.carousel-btn):not(.nav-toggle):focus,
+.btn:hover,
+.btn:focus {
   transform: translateY(-3px);
   box-shadow: 6px 9px 0 rgba(0, 0, 0, 0.2);
 }
 
-button:not(.carousel-btn):not(.nav-toggle):active {
+button:not(.carousel-btn):not(.nav-toggle):active,
+.btn:active {
   transform: translateY(2px);
   box-shadow: 2px 3px 0 rgba(0, 0, 0, 0.22);
+}
+
+.btn {
+  display: inline-block;
+  text-decoration: none;
 }
 
 /* ----------------------------
@@ -563,6 +581,8 @@ button:not(.carousel-btn):not(.nav-toggle):active {
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.75rem;
   align-items: start;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
 .contact-card {
@@ -583,12 +603,195 @@ button:not(.carousel-btn):not(.nav-toggle):active {
   color: var(--muted);
 }
 
+.contact-actions {
+  margin-top: 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.contact-top {
+  grid-column: 1 / -1;
+}
+
+.contact-top-inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.contact-top-cta {
+  display: flex;
+  justify-content: center;
+}
+
+.contact-top-cta .help-mailto-btn {
+  width: min(820px, 25%);
+  background: transparent;
+  color: var(--text);
+  border: 2px solid var(--accent);
+  justify-content: center;
+}
+
+@media (min-width: 769px) {
+  .contact-top-inner {
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: center;
+  }
+}
+
 .contact-card form {
   margin-top: 0;
 }
 
 .contact-card textarea {
   min-height: 140px;
+}
+
+.contact-help {
+  grid-column: 1 / -1;
+}
+
+.help-links {
+  margin-top: 1.25rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.help-link-card {
+  display: block;
+  text-decoration: none;
+  border: none;
+  padding: 1.25rem;
+}
+
+.help-link-card h4 {
+  margin-bottom: 0.35rem;
+  font-size: 1.05rem;
+  color: #ffffff;
+}
+
+.help-link-card p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.95rem;
+}
+
+/* ----------------------------
+   HELP
+---------------------------- */
+
+.help {
+  padding: 3rem 0 4rem;
+}
+
+.help-hero {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.help-hero h2 {
+  font-family: var(--font-heading);
+  font-size: 2.3rem;
+  color: var(--accent);
+}
+
+.help-hero p {
+  color: var(--muted);
+  margin-top: 0.5rem;
+}
+
+.help-search {
+  margin-top: 1.25rem;
+  display: flex;
+  justify-content: center;
+}
+
+.help-mailto-btn {
+  width: min(820px, 100%);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.9rem 1rem;
+}
+
+.help-search-icon {
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  font-size: 1rem;
+  line-height: 1;
+  flex: 0 0 auto;
+}
+
+.help-search-text {
+  font-weight: 600;
+}
+
+.help-topics {
+  margin-top: 2rem;
+}
+
+.help-topics-title {
+  margin-bottom: 1rem;
+  font-family: var(--font-heading);
+  color: var(--text);
+}
+
+.help-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.25rem;
+}
+
+.help-card {
+  display: block;
+  text-decoration: none;
+  border: none;
+  padding: 1.5rem;
+}
+
+.help-card h3 {
+  margin-bottom: 0.5rem;
+}
+
+.help-card p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.help-article {
+  padding: 3rem 0 4rem;
+}
+
+.help-back {
+  display: inline-block;
+  margin-bottom: 1rem;
+  text-decoration: none;
+  color: var(--text);
+}
+
+.help-article h2 {
+  font-family: var(--font-heading);
+  font-size: 2.3rem;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+.help-article-body {
+  background: var(--bg);
+  padding: 1.75rem;
+}
+
+.help-article-body ul {
+  margin-top: 1rem;
+  padding-left: 1.25rem;
 }
 
 .notice {

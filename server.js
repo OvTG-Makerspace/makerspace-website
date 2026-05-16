@@ -174,6 +174,13 @@ function loadCarouselEntries() {
 
 const carouselEntries = loadCarouselEntries();
 
+const helpArticles = [
+  { href: "/help/join", title: "Mitmachen", desc: "So kannst du beitreten und loslegen." },
+  { href: "/help/where-to-go", title: "Wo musst du hin?", desc: "Ort, Zugang und Zeiten." },
+  { href: "/help/what-you-can-do", title: "Was kannst du machen?", desc: "Projekte, Ideen und Aktivitäten." },
+  { href: "/help/how-it-works", title: "Wie läuft’s ab?", desc: "Ablauf, Regeln und Tipps." },
+];
+
 /* -----------------------------
    EXPRESS + HANDLEBARS SETUP
 -------------------------------- */
@@ -195,6 +202,12 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
+
+// Expose shared template data to all views.
+app.use((req, res, next) => {
+  res.locals.helpArticles = helpArticles;
+  next();
+});
 
 
 /* =========================================================
@@ -228,6 +241,36 @@ app.get("/contact", (req, res) => {
   });
 });
 
+app.get("/help", (req, res) => {
+  res.render("help/index", {
+    title: "Hilfe",
+  });
+});
+
+app.get("/help/join", (req, res) => {
+  res.render("help/join", {
+    title: "Mitmachen",
+  });
+});
+
+app.get("/help/where-to-go", (req, res) => {
+  res.render("help/where-to-go", {
+    title: "Wo musst du hin?",
+  });
+});
+
+app.get("/help/what-you-can-do", (req, res) => {
+  res.render("help/what-you-can-do", {
+    title: "Was kannst du machen?",
+  });
+});
+
+app.get("/help/how-it-works", (req, res) => {
+  res.render("help/how-it-works", {
+    title: "Wie läuft’s ab?",
+  });
+});
+
 app.post("/contact", async (req, res) => {
   const name = String(req.body.name || "").trim();
   const email = String(req.body.email || "").trim();
@@ -238,6 +281,7 @@ app.post("/contact", async (req, res) => {
       title: "Contact",
       error: "Bitte füllen Sie alle Felder aus.",
       form: { name, email, message },
+      helpArticles,
     });
   }
 
@@ -246,6 +290,7 @@ app.post("/contact", async (req, res) => {
       title: "Contact",
       error: "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
       form: { name, email, message },
+      helpArticles,
     });
   }
 
@@ -270,6 +315,7 @@ app.post("/contact", async (req, res) => {
     return res.render("contact", {
       title: "Contact",
       success: "Vielen Dank! Ihre Nachricht wurde gesendet.",
+      helpArticles,
     });
   } catch (err) {
     console.error("Contact form email failed:", err);
@@ -277,6 +323,7 @@ app.post("/contact", async (req, res) => {
       title: "Contact",
       error: "Es gab ein Problem beim Senden der Nachricht. Bitte versuchen Sie es erneut.",
       form: { name, email, message },
+      helpArticles,
     });
   }
 });
