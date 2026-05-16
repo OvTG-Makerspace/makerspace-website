@@ -1,66 +1,162 @@
-# makerspace-website
+# Makerspace-Website
 
-Node/Express website with a Dockerized SMTP relay for outbound email (contact form).
+Die offizielle Website des **OvTG Makerspace** – einem kreativen Raum für Maker, Entwickler und Technologie-Enthusiasten.
 
-## Local dev (Node)
+## 📌 Über das Projekt
 
-- Install: `npm ci`
-- Run: `npm run dev` (serves on `http://localhost:3000`)
+### Was ist der OvTG Makerspace?
 
-The contact form sends email via SMTP configured in `.env`.
+Der Makerspace am Otto-von-Taube-Gymnasium (OvTG) ist ein offener Werkstattbereich, in dem Schüler:innen und Mitgliedern Zugang zu Werkzeugen, Maschinen und Technologien für eigene Projekte geboten wird. Hier können Ideen verwirklicht, Prototypen gebaut und technische Fähigkeiten erlernt werden.
 
-## Docker (app + SMTP relay)
+### Diese Website
 
-This repo ships a `docker-compose.yml` with:
+Diese Website dient als:
 
-- `app`: the website (Express)
-- `smtp-relay`: Postfix relay that accepts SMTP from `app` and relays outbound via an upstream SMTP provider
+- **Informationsplattform** für den Makerspace
+- **Projektgalerie** für abgeschlossene und laufende Projekte
+- **Kontaktpunkt** für Interessierte
+- **Dokumentationshub** für Anleitungen und Ressourcen
+- **Anlaufstelle/Werbestelle** für eventuelle Sponsoren
 
-### Devenv tasks
+### Technische Basis
 
-HINT: If you use devenv, you can manage the Docker deploy workflow via tasks:
+- **Node.js** + **Express** – Backend-Framework
+- **Docker** – Containerisierung für einfache Bereitstellung
+- **Devenv** – Entwicklungsumgebung
 
-- Init local deploy files: `devenv tasks run mksp:deploy_init`
-- Validate required files exist: `devenv tasks run mksp:deploy_validate`
-- Build + start stack: `devenv tasks run mksp:deploy`
+---
 
-### Safe credential storage
+## ✨ Mitwirken
 
-Do **not** commit SMTP credentials to Git.
+Wir freuen uns über Beiträge aller Art! Egal ob du Entwickler:in, Designer:in, Autor:in **bist** oder einfach nur Ideen hast – dein Beitrag ist willkommen.
 
-Use one of these approaches:
+### Wie du mitmachen kannst
 
-1) **Docker secrets (recommended)**: create secret files on the deploy host
-2) **Environment variables**: acceptable for local testing, but avoid for production
 
-### Deploy with Docker secrets (recommended)
+| Bereich              | Aufgaben                                         | Voraussetzungen            |
+| -------------------- | ------------------------------------------------ | -------------------------- |
+| **Webentwicklung**   | Frontend/Backend verbessern, neue Features       | Node.js, Express, HTML/CSS |
+| **Inhalte**          | Projektbeschreibungen, Anleitungen, Blogbeiträge | Interesse am Makerspace    |
+| **Design**           | UI/UX verbessern, Styles anpassen                | CSS, Design-Erfahrung      |
+| **Dokumentation**    | Anleitungen schreiben, READMEs pflegen           | Technisches Verständnis    |
+| **Ideen & Feedback** | Vorschläge einreichen, Bugs melden               | Keine – einfach loslegen!  |
 
-On the deploy host (next to `docker-compose.yml`):
 
-1. Create `.env` from `.env.example`:
-   - `cp .env.example .env`
-   - Edit values as needed (e.g. `ADMIN_EMAIL`, `SMTP_FROM`)
+### Erste Schritte für Entwickler:innen
 
-2. Create secret files (these must stay off Git):
-   - `mkdir -p secrets`
-   - `printf '%s' 'your-smtp-username' > secrets/relay_username`
-   - `printf '%s' 'your-smtp-token-or-password' > secrets/relay_password`
-   - `chmod 600 secrets/relay_username secrets/relay_password`
+1. **Repository klonen**
+  ```sh
+   git clone https://github.com/OvTG-Makerspace/makerspace-website
+   cd makerspace-website
+  ```
+2. **Abhängigkeiten installieren**
+  ```sh
+   npm ci  # Installiert alle in package.json definierten Abhängigkeiten
+  ```
+  - **Node.js herunterladen**: [https://nodejs.org/](https://nodejs.org/)
+3. **Lokale Entwicklung starten**
+  ```sh
+   npm run dev  # Startet den Entwicklungsserver mit Hot-Reload
+  ```
+   Die Website ist dann unter `http://localhost:3000` erreichbar.
+4. **Änderungen einreichen**
+  - Erstelle einen neuen Branch: `git checkout -b feature/dein-feature`
+  - Commite deine Änderungen: `git commit -m "Beschreibung der Änderung"`
+  - Push den Branch: `git push origin feature/dein-feature`
+  - Erstelle einen Pull Request auf GitHub
 
-3. Start services:
-   - `docker compose up -d --build`
+### Code-Standards
 
-### Proton SMTP
+- **Commits**: Klare, beschreibende Commit-Messages
+- **Code-Formatierung**: Konsistente Einrückung und Benennung
+- **Pull Requests**: Beschreibe deine Änderungen und verlinke ggf. Issues
+- **Tests**: Falls vorhanden, stelle sicher, dass alle Tests durchlaufen
 
-This stack is preconfigured to relay via Proton SMTP submission (`smtp.protonmail.ch:587`). Put the Proton SMTP username + SMTP token into the two secret files above.
+### Code of Conduct
 
-HINT: If you use devenv, run `devenv tasks run mksp:deploy_init` to create `.env` and template secret files, then `devenv tasks run mksp:deploy`.
+Wir erwarten von allen Mitwirkenden:
 
-### App mail settings
+- Respektvoller Umgang miteinander
+- Konstruktives Feedback
+- Offenheit für verschiedene Meinungen und Ansätze
 
-The app uses:
+---
 
-- `ADMIN_EMAIL`: recipient for contact form mail
-- `SMTP_FROM`: sender shown in the email `From:` header (default: `no-reply@makerspace.ovtg.de`)
+## 🚀 Entwicklung
 
-The visitor’s email is placed into `Reply-To:` (so you can reply without spoofing `From:`).
+### Lokale Entwicklung
+
+#### Voraussetzungen
+
+- Node.js (Version 18+ empfohlen)
+- npm
+
+### Mit Devenv (empfohlen)
+
+Dieses Projekt nutzt [Devenv](https://devenv.sh/) für eine reproduzierbare Entwicklungsumgebung.
+
+```sh
+# Entwicklungs-Shell starten
+devenv shell
+
+# Innerhalb der Shell:
+npm run dev
+```
+
+**Verfügbare Devenv-Tasks:**
+
+
+| Task                   | Beschreibung                                     |
+| ---------------------- | ------------------------------------------------ |
+| `mksp:deploy_init`     | Initialisiert lokale Bereitstellungsdateien      |
+| `mksp:deploy_validate` | Überprüft, ob alle benötigten Dateien existieren |
+| `mksp:deploy`          | Build und startet den Docker-Stack               |
+
+
+---
+
+## 📁 Projektstruktur
+
+```
+makerspace-website/
+├── content/               # Inhalte (Projekte, Seiten)
+├── css/                   # Stylesheets
+├── data/                  # Daten (z.B. JSON-Dateien)
+├── views/                 # Express Views (EJS-Templates)
+├── public/                # Statische Dateien (Bilder, JS, CSS)
+├── server.js              # Express-Server
+├── build.js               # Build-Skript
+├── package.json           # Abhängigkeiten
+├── Dockerfile             # Docker-Container
+├── docker-compose.yml     # Docker Compose
+├── devenv.nix             # Devenv Pakete
+├── devenv.yaml            # Devenv Konfiguration
+└── .env.example            # Beispiel-Umgebungsvariablen
+```
+
+### Wichtige Dateien
+
+
+| Datei       | Zweck                                         |
+| ----------- | --------------------------------------------- |
+| `server.js` | Hauptanwendung (Express)                      |
+| `views/`    | EJS-Templates für die Seiten                  |
+| `content/`  | Markdown/Inhalte für Projekte und Seiten      |
+| `css/`      | Stylesheets                                   |
+| `public/`   | Statische Assets (Bilder, Client-seitiges JS) |
+
+
+---
+
+## 💬 Fragen?
+
+Bei Fragen oder Problemen wende dich bitte an den Administrator:  
+**E-Mail**: [simon.korten@proton.me](mailto:simon.korten@proton.me)
+
+---
+
+## 📄 Lizenz
+
+Dieses Projekt steht unter der **MIT-Lizenz**. Siehe [LICENSE](LICENSE) für den vollständigen Lizenztext.
+
+Copyright (c) 2026 OvTG Makerspace

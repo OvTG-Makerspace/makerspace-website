@@ -1,0 +1,190 @@
+<h1 id="makerspace-website">Makerspace-Website</h1>
+<p>Die offizielle Website des <strong>OvTG Makerspace</strong> – einem kreativen Raum für Maker, Entwickler und Technologie-Enthusiasten.</p>
+<h2 id="-ber-das-projekt">📌 Über das Projekt</h2>
+<h3 id="was-ist-der-ovtg-makerspace-">Was ist der OvTG Makerspace?</h3>
+<p>Der Makerspace am Otto-von-Taube-Gymnasium (OvTG) ist ein offener Werkstattbereich, in dem Schüler:innen und Mitgliedern Zugang zu Werkzeugen, Maschinen und Technologien für eigene Projekte geboten wird. Hier können Ideen verwirklicht, Prototypen gebaut und technische Fähigkeiten erlernt werden.</p>
+<h3 id="diese-website">Diese Website</h3>
+<p>Diese Website dient als:</p>
+<ul>
+<li><strong>Informationsplattform</strong> für den Makerspace</li>
+<li><strong>Projektgalerie</strong> für abgeschlossene und laufende Projekte</li>
+<li><strong>Kontaktpunkt</strong> für Interessierte</li>
+<li><strong>Dokumentationshub</strong> für Anleitungen und Ressourcen</li>
+<li><strong>Anlaufstelle/Werbestelle</strong> für eventuelle Sponsoren</li>
+</ul>
+<h3 id="technische-basis">Technische Basis</h3>
+<ul>
+<li><strong>Node.js</strong> + <strong>Express</strong> – Backend-Framework</li>
+<li><strong>Docker</strong> – Containerisierung für einfache Bereitstellung</li>
+<li><strong>Devenv</strong> – Entwicklungsumgebung</li>
+</ul>
+<hr>
+<h2 id="-mitwirken">✨ Mitwirken</h2>
+<p>Wir freuen uns über Beiträge aller Art! Egal ob du Entwickler:in, Designer:in, Autor:in <strong>bist</strong> oder einfach nur Ideen hast – dein Beitrag ist willkommen.</p>
+<h3 id="wie-du-mitmachen-kannst">Wie du mitmachen kannst</h3>
+<table>
+<thead>
+<tr>
+<th>Bereich</th>
+<th>Aufgaben</th>
+<th>Voraussetzungen</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Webentwicklung</strong></td>
+<td>Frontend/Backend verbessern, neue Features</td>
+<td>Node.js, Express, HTML/CSS</td>
+</tr>
+<tr>
+<td><strong>Inhalte</strong></td>
+<td>Projektbeschreibungen, Anleitungen, Blogbeiträge</td>
+<td>Interesse am Makerspace</td>
+</tr>
+<tr>
+<td><strong>Design</strong></td>
+<td>UI/UX verbessern, Styles anpassen</td>
+<td>CSS, Design-Erfahrung</td>
+</tr>
+<tr>
+<td><strong>Dokumentation</strong></td>
+<td>Anleitungen schreiben, READMEs pflegen</td>
+<td>Technisches Verständnis</td>
+</tr>
+<tr>
+<td><strong>Ideen &amp; Feedback</strong></td>
+<td>Vorschläge einreichen, Bugs melden</td>
+<td>Keine – einfach loslegen!</td>
+</tr>
+</tbody>
+</table>
+<h3 id="erste-schritte-f-r-entwickler-innen">Erste Schritte für Entwickler:innen</h3>
+<ol>
+<li><strong>Repository klonen</strong><pre><code class="lang-sh">git <span class="hljs-keyword">clone</span> <span class="hljs-title">https</span>://github.com/OvTG-Makerspace/makerspace-website
+cd makerspace-website
+</code></pre>
+</li>
+<li><strong>Abhängigkeiten installieren</strong><pre><code class="lang-sh">npm ci  # Installiert alle <span class="hljs-keyword">in</span> <span class="hljs-keyword">package</span>.json definierten Abhängigkeiten
+</code></pre>
+<ul>
+<li><strong>Node.js herunterladen</strong>: <a href="https://nodejs.org/">https://nodejs.org/</a></li>
+</ul>
+</li>
+<li><strong>Lokale Entwicklung starten</strong><pre><code class="lang-sh">npm <span class="hljs-keyword">run</span><span class="bash"> dev  <span class="hljs-comment"># Startet den Entwicklungsserver mit Hot-Reload</span></span>
+</code></pre>
+Die Website ist dann unter <code>http://localhost:3000</code> erreichbar.</li>
+<li><strong>Änderungen einreichen</strong><ul>
+<li>Erstelle einen neuen Branch: <code>git checkout -b feature/dein-feature</code></li>
+<li>Commite deine Änderungen: <code>git commit -m &quot;Beschreibung der Änderung&quot;</code></li>
+<li>Push den Branch: <code>git push origin feature/dein-feature</code></li>
+<li>Erstelle einen Pull Request auf GitHub</li>
+</ul>
+</li>
+</ol>
+<h3 id="code-standards">Code-Standards</h3>
+<ul>
+<li><strong>Commits</strong>: Klare, beschreibende Commit-Messages</li>
+<li><strong>Code-Formatierung</strong>: Konsistente Einrückung und Benennung</li>
+<li><strong>Pull Requests</strong>: Beschreibe deine Änderungen und verlinke ggf. Issues</li>
+<li><strong>Tests</strong>: Falls vorhanden, stelle sicher, dass alle Tests durchlaufen</li>
+</ul>
+<h3 id="code-of-conduct">Code of Conduct</h3>
+<p>Wir erwarten von allen Mitwirkenden:</p>
+<ul>
+<li>Respektvoller Umgang miteinander</li>
+<li>Konstruktives Feedback</li>
+<li>Offenheit für verschiedene Meinungen und Ansätze</li>
+</ul>
+<hr>
+<h2 id="-entwicklung">🚀 Entwicklung</h2>
+<h3 id="lokale-entwicklung">Lokale Entwicklung</h3>
+<h4 id="voraussetzungen">Voraussetzungen</h4>
+<ul>
+<li>Node.js (Version 18+ empfohlen)</li>
+<li>npm</li>
+</ul>
+<h3 id="mit-devenv-empfohlen-">Mit Devenv (empfohlen)</h3>
+<p>Dieses Projekt nutzt <a href="https://devenv.sh/">Devenv</a> für eine reproduzierbare Entwicklungsumgebung.</p>
+<pre><code class="lang-sh"><span class="hljs-comment"># Entwicklungs-Shell starten</span>
+devenv shell
+
+<span class="hljs-comment"># Innerhalb der Shell:</span>
+npm <span class="hljs-keyword">run</span><span class="bash"> dev</span>
+</code></pre>
+<p><strong>Verfügbare Devenv-Tasks:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Beschreibung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mksp:deploy_init</code></td>
+<td>Initialisiert lokale Bereitstellungsdateien</td>
+</tr>
+<tr>
+<td><code>mksp:deploy_validate</code></td>
+<td>Überprüft, ob alle benötigten Dateien existieren</td>
+</tr>
+<tr>
+<td><code>mksp:deploy</code></td>
+<td>Build und startet den Docker-Stack</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="-projektstruktur">📁 Projektstruktur</h2>
+<pre><code>makerspace-website/
+├── content/               <span class="hljs-meta"># Inhalte (Projekte, Seiten)</span>
+├── css/                   <span class="hljs-meta"># Stylesheets</span>
+├── data/                  <span class="hljs-meta"># Daten (z.B. JSON-Dateien)</span>
+├── views/                 <span class="hljs-meta"># Express Views (EJS-Templates)</span>
+├── <span class="hljs-keyword">public</span>/                <span class="hljs-meta"># Statische Dateien (Bilder, JS, CSS)</span>
+├── <span class="hljs-keyword">server</span>.js              <span class="hljs-meta"># Express-Server</span>
+├── build.js               <span class="hljs-meta"># Build-Skript</span>
+├── package.json           <span class="hljs-meta"># Abhängigkeiten</span>
+├── Dockerfile             <span class="hljs-meta"># Docker-Container</span>
+├── docker-compose.yml     <span class="hljs-meta"># Docker Compose</span>
+├── devenv.nix             <span class="hljs-meta"># Devenv Pakete</span>
+├── devenv.yaml            <span class="hljs-meta"># Devenv Konfiguration</span>
+└── .env.example            <span class="hljs-meta"># Beispiel-Umgebungsvariablen</span>
+</code></pre><h3 id="wichtige-dateien">Wichtige Dateien</h3>
+<table>
+<thead>
+<tr>
+<th>Datei</th>
+<th>Zweck</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>server.js</code></td>
+<td>Hauptanwendung (Express)</td>
+</tr>
+<tr>
+<td><code>views/</code></td>
+<td>EJS-Templates für die Seiten</td>
+</tr>
+<tr>
+<td><code>content/</code></td>
+<td>Markdown/Inhalte für Projekte und Seiten</td>
+</tr>
+<tr>
+<td><code>css/</code></td>
+<td>Stylesheets</td>
+</tr>
+<tr>
+<td><code>public/</code></td>
+<td>Statische Assets (Bilder, Client-seitiges JS)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="-fragen-">💬 Fragen?</h2>
+<p>Bei Fragen oder Problemen wende dich bitte an den Administrator:<br><strong>E-Mail</strong>: <a href="mailto:simon.korten@proton.me">simon.korten@proton.me</a></p>
+<hr>
+<h2 id="-lizenz">📄 Lizenz</h2>
+<p>Dieses Projekt steht unter der <strong>MIT-Lizenz</strong>. Siehe <a href="LICENSE">LICENSE</a> für den vollständigen Lizenztext.</p>
+<p>Copyright (c) 2026 OvTG Makerspace</p>

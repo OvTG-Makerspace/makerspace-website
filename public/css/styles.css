@@ -6,12 +6,12 @@
   /* Dark mode palette */
    --bg: #ffffff; /* user requested background */
   --surface: #ebeceb; /* slightly lighter surface */
- --card-bg: #0bd02c;
+ --card-bg: #4c8362;
   --border: #bdbdbd;
   --text: #707070;
   --muted: #707070;
-  --accent: #0bd02c;
-  --accent-strong: #707070;
+  --accent: #4c8362;
+  --accent-strong: #f39200;
 
   --font-body: "Inter", Arial, sans-serif;
   --font-heading: "Roboto Slab", sans-serif;
@@ -261,7 +261,7 @@ body {
 
 .site-nav a:hover,
 .site-nav a:focus {
-  color: var(--accent);
+  color: var(--accent-strong);
 }
 
 /* ----------------------------

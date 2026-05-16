@@ -54,12 +54,13 @@ function isLikelyEmail(value) {
 }
 
 class CarouselEntry {
-  constructor({ image, title, subtitle, main, route }) {
+  constructor({ image, title, subtitle, main, route, redirect }) {
     this.image = image;
     this.title = title;
     this.subtitle = subtitle;
     this.main = main;
     this.route = route;
+    this.redirect = redirect;
   }
 }
 
@@ -150,19 +151,28 @@ function loadCarouselEntries() {
     subtitle: header.indexOf("subtitle"),
     main: header.indexOf("main"),
     route: header.indexOf("route"),
+    redirect: header.indexOf("redirect"),
   };
 
   return rows.slice(1).map((row, i) => {
+    const rawRoute = row[idx.route] ? String(row[idx.route]).trim() : "";
+    const looksExternal = /^https?:\/\//i.test(rawRoute);
     const entry = new CarouselEntry({
       image: row[idx.image] ? row[idx.image].trim() : "",
       title: row[idx.title] ? row[idx.title].trim() : "",
       subtitle: row[idx.subtitle] ? row[idx.subtitle].trim() : "",
       main: row[idx.main] ? row[idx.main].trim() : "",
-      route: normalizeRoute(row[idx.route] ? row[idx.route].trim() : ""),
+      route: looksExternal ? "" : normalizeRoute(rawRoute),
+      redirect:
+        idx.redirect >= 0 && row[idx.redirect]
+          ? String(row[idx.redirect]).trim()
+          : looksExternal
+            ? rawRoute
+            : "",
     });
 
-    if (!entry.route) {
-      console.warn(`Carousel entry ${i + 1} is missing a route.`);
+    if (!entry.route && !entry.redirect) {
+      console.warn(`Carousel entry ${i + 1} is missing a route (and no redirect).`);
     }
     if (!entry.main) {
       console.warn(`Carousel entry ${i + 1} is missing a main file.`);
@@ -221,6 +231,7 @@ app.get("/", (req, res) => {
       title: entry.title,
       subtitle: entry.subtitle,
       route: entry.route,
+      redirect: entry.redirect,
     }))
   );
   res.render("home", {

@@ -107,15 +107,27 @@ function loadCarouselEntries() {
     subtitle: header.indexOf("subtitle"),
     main: header.indexOf("main"),
     route: header.indexOf("route"),
+    redirect: header.indexOf("redirect"),
   };
 
-  return rows.slice(1).map((row) => ({
-    image: row[idx.image] ? row[idx.image].trim() : "",
-    title: row[idx.title] ? row[idx.title].trim() : "",
-    subtitle: row[idx.subtitle] ? row[idx.subtitle].trim() : "",
-    main: row[idx.main] ? row[idx.main].trim() : "",
-    route: normalizeRoute(row[idx.route] ? row[idx.route].trim() : ""),
-  }));
+  return rows.slice(1).map((row) => {
+    const rawRoute = row[idx.route] ? String(row[idx.route]).trim() : "";
+    const looksExternal = /^https?:\/\//i.test(rawRoute);
+
+    return {
+      image: row[idx.image] ? row[idx.image].trim() : "",
+      title: row[idx.title] ? row[idx.title].trim() : "",
+      subtitle: row[idx.subtitle] ? row[idx.subtitle].trim() : "",
+      main: row[idx.main] ? row[idx.main].trim() : "",
+      route: looksExternal ? "" : normalizeRoute(rawRoute),
+      redirect:
+        idx.redirect >= 0 && row[idx.redirect]
+          ? String(row[idx.redirect]).trim()
+          : looksExternal
+            ? rawRoute
+            : "",
+    };
+  });
 }
 
 const carouselEntries = loadCarouselEntries();
@@ -125,6 +137,7 @@ const slidesJson = JSON.stringify(
     title: entry.title,
     subtitle: entry.subtitle,
     route: entry.route,
+    redirect: entry.redirect,
   }))
 );
 

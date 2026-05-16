@@ -9,7 +9,8 @@ const slides = (window.carouselSlides || []).map((slide) => ({
     src: slide.image,
     title: slide.title,
     subtitle: slide.subtitle,
-    href: slide.route
+    href: slide.redirect || slide.route || "#",
+    newTab: Boolean(slide.redirect),
 }));
 
 let position = 0;
@@ -21,6 +22,8 @@ const renderSlide = (index) => {
     title.textContent = slide.title;
     subtitle.textContent = slide.subtitle;
     link.href = slide.href;
+    link.target = slide.newTab ? "_blank" : "_self";
+    link.rel = slide.newTab ? "noopener" : "";
 };
 
 let isTransitioning = false;
