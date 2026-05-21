@@ -282,6 +282,12 @@ app.get("/help/how-it-works", (req, res) => {
   });
 });
 
+app.get("/impressum", (req, res) => {
+  res.render("impressum", {
+    title: "Impressum",
+  });
+});
+
 app.post("/contact", async (req, res) => {
   const name = String(req.body.name || "").trim();
   const email = String(req.body.email || "").trim();
