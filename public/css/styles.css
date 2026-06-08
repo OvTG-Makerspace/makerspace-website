@@ -787,6 +787,7 @@ button:not(.carousel-btn):not(.nav-toggle):active,
 .help-article-body {
   background: var(--bg);
   padding: 1.75rem;
+  text-align: justify;
 }
 
 .help-article-body ul {
