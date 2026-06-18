@@ -357,6 +357,104 @@ h2.section-title-centered {
 }
 
 /* ----------------------------
+   P-SEMINAR ARTICLE
+---------------------------- */
+
+.psem-doc {
+  max-width: 980px;
+  margin: 3rem auto 4rem;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.psem-doc::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.psem-doc p {
+  margin: 0 0 1.15rem;
+  color: var(--text);
+}
+
+.psem-doc h2 {
+  margin: 2rem 0 0.75rem;
+  color: var(--accent);
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  line-height: 1.25;
+}
+
+.psem-doc .doc-figure {
+  display: block;
+}
+
+.psem-doc .doc-figure .doc-img {
+  display: block;
+  width: 100%;
+  object-fit: cover;
+  background: var(--surface);
+}
+
+.psem-doc .doc-figure figcaption {
+  margin-top: 0.45rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.35;
+}
+
+.psem-doc .img-phase-1 {
+  float: right;
+  width: min(34vw, 300px);
+  margin: 0.25rem 0 1rem 1.5rem;
+}
+
+.psem-doc .img-phase-1 .doc-img {
+  height: 360px;
+  object-position: 53% 38%;
+}
+
+.psem-doc .img-phase-2-left {
+  float: left;
+  width: min(38vw, 350px);
+  margin: 0.35rem 1.5rem 1rem 0;
+}
+
+.psem-doc .img-phase-2-left .doc-img {
+  height: 240px;
+  object-position: 58% 64%;
+}
+
+.psem-doc .img-phase-2-right {
+  float: right;
+  width: min(30vw, 250px);
+  margin: 0.2rem 0 1rem 1.5rem;
+}
+
+.psem-doc .img-phase-2-right .doc-img {
+  height: 330px;
+  object-position: center;
+}
+
+.psem-doc .img-phase-3 {
+  float: right;
+  width: min(52vw, 470px);
+  margin: 0.35rem 0 1rem 1.5rem;
+}
+
+.psem-doc .img-phase-3 .doc-img {
+  height: 190px;
+  object-position: 50% 62%;
+}
+
+.psem-doc .clear {
+  clear: both;
+}
+
+/* ----------------------------
    HOME INTRO
 ---------------------------- */
 
@@ -991,6 +1089,58 @@ button:not(.carousel-btn):not(.nav-toggle):active,
 
   .main-photo {
     display: none;
+  }
+
+  .psem-doc {
+    margin: 2rem auto 3rem;
+  }
+
+  .psem-doc h2 {
+    font-size: 1.65rem;
+  }
+
+  .psem-doc .img-phase-1 {
+    float: right;
+    width: 34vw;
+    margin: 0.2rem 0 0.75rem 0.85rem;
+  }
+
+  .psem-doc .img-phase-1 .doc-img {
+    height: 40.8vw;
+  }
+
+  .psem-doc .img-phase-2-left {
+    float: left;
+    width: 38vw;
+    margin: 0.25rem 0.85rem 0.75rem 0;
+  }
+
+  .psem-doc .img-phase-2-left .doc-img {
+    height: 26vw;
+  }
+
+  .psem-doc .img-phase-2-right {
+    float: right;
+    width: 30vw;
+    margin: 0.2rem 0 0.75rem 0.85rem;
+  }
+
+  .psem-doc .img-phase-2-right .doc-img {
+    height: 39.6vw;
+  }
+
+  .psem-doc .img-phase-3 {
+    float: right;
+    width: 52vw;
+    margin: 0.25rem 0 0.75rem 0.85rem;
+  }
+
+  .psem-doc .img-phase-3 .doc-img {
+    height: 21vw;
+  }
+
+  .psem-doc .doc-figure figcaption {
+    font-size: 0.78rem;
   }
 
   .card-grid {
