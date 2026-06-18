@@ -32,6 +32,18 @@
                     </div>
                 </div>
             </div> --}}
+
+            <div class="contact-card contact-help">
+                <h3>Das Wichtigste auf einen Blick</h3>
+                <div class="help-links">
+                    {{#each helpArticles}}
+                        <a class="help-link-card btn" href="{{href}}">
+                            <h4>{{title}}</h4>
+                            <p>{{desc}}</p>
+                        </a>
+                    {{/each}}
+                </div>
+            </div>
         {{!-- </div> --}}
     </div>
 </section>
