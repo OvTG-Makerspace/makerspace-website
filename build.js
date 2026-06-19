@@ -165,6 +165,9 @@ const pages = [
       outDir: entry.route.replace(/^\//, ""),
       data: {
         title: entry.title || "Details",
+        entryImage: entry.image,
+        entryTitle: entry.title,
+        entrySubtitle: entry.subtitle,
         content: fs.readFileSync(resolveContentPath(entry.main), "utf8"),
       },
     })),

@@ -1,3 +1,15 @@
+{{#if entryImage}}
+<section class="entry-hero">
+  <img class="entry-hero-image" src="{{entryImage}}" alt="{{entryTitle}}">
+  <div class="entry-hero-caption">
+    <h1>{{entryTitle}}</h1>
+    {{#if entrySubtitle}}
+      <p>{{entrySubtitle}}</p>
+    {{/if}}
+  </div>
+</section>
+{{/if}}
+
 <section class="container">
     {{{content}}}
 </section>
