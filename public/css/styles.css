@@ -132,6 +132,57 @@
   color: rgba(255, 255, 255, 0.9);
 }
 
+/* ----------------------------
+   ENTRY HERO
+---------------------------- */
+
+.entry-hero {
+  position: relative;
+  width: 100%;
+  margin: 2rem 0 3rem;
+  overflow: hidden;
+  color: #fff;
+}
+
+.entry-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0));
+  pointer-events: none;
+}
+
+.entry-hero-image {
+  width: 100%;
+  height: 36vh;
+  min-height: 240px;
+  max-height: 420px;
+  object-fit: cover;
+  display: block;
+}
+
+.entry-hero-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.55);
+  padding: 1.25rem 5vw 1.5rem;
+}
+
+.entry-hero-caption h1 {
+  font-family: var(--font-heading);
+  font-size: clamp(1.75rem, 3vw, 2.75rem);
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.entry-hero-caption p {
+  font-size: clamp(1rem, 1.6vw, 1.25rem);
+  color: rgba(255, 255, 255, 0.9);
+}
+
 .carousel-btn {
   position: absolute;
   top: 50%;
@@ -1085,6 +1136,19 @@ button:not(.carousel-btn):not(.nav-toggle):active,
   .site-nav li a {
     display: block;
     padding: 0.85rem 1rem;
+  }
+
+  .entry-hero {
+    margin: 1rem 0 2rem;
+  }
+
+  .entry-hero-image {
+    height: 30vh;
+    min-height: 180px;
+  }
+
+  .entry-hero-caption {
+    padding: 1rem;
   }
 
   .main-photo {

@@ -360,6 +360,9 @@ carouselEntries.forEach((entry) => {
       const content = fs.readFileSync(contentPath, "utf8");
       res.render("entry", {
         title: entry.title || "Details",
+        entryImage: entry.image,
+        entryTitle: entry.title,
+        entrySubtitle: entry.subtitle,
         content,
       });
     } catch (err) {
