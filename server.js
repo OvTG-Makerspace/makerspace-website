@@ -240,47 +240,18 @@ app.get("/", (req, res) => {
   });
 });
 
-app.get("/about", (req, res) => {
+app.get("/ueber-uns", (req, res) => {
   res.render("about", {
     title: "Über Uns",
   });
 });
 
-app.get("/contact", (req, res) => {
+app.get("/kontakt", (req, res) => {
   res.render("contact", {
     title: "Kontakt",
   });
 });
 
-app.get("/help", (req, res) => {
-  res.render("help/index", {
-    title: "Hilfe",
-  });
-});
-
-app.get("/help/join", (req, res) => {
-  res.render("help/join", {
-    title: "Mitmachen",
-  });
-});
-
-app.get("/help/where-to-go", (req, res) => {
-  res.render("help/where-to-go", {
-    title: "Wo musst du hin?",
-  });
-});
-
-app.get("/help/what-you-can-do", (req, res) => {
-  res.render("help/what-you-can-do", {
-    title: "Was kannst du machen?",
-  });
-});
-
-app.get("/help/how-it-works", (req, res) => {
-  res.render("help/how-it-works", {
-    title: "Wie läuft’s ab?",
-  });
-});
 
 app.get("/impressum", (req, res) => {
   res.render("impressum", {
@@ -345,7 +316,7 @@ app.post("/contact", async (req, res) => {
   }
 });
 
-app.get("/courses", (req, res) => {
+app.get("/kurse", (req, res) => {
   res.render("courses", {
     title: "Kurse",
   });
