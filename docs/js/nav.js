@@ -1,6 +1,38 @@
 (() => {
   const navToggle = document.querySelector(".nav-toggle");
   const navList = document.getElementById("site-nav-list");
+  const siteHeader = document.querySelector(".site-header");
+
+  const desktopQuery = window.matchMedia("(min-width: 769px)");
+
+  function setHeaderCompact(compact) {
+    if (!siteHeader) return;
+    siteHeader.classList.toggle("is-compact", compact);
+  }
+
+  function syncHeaderToScroll() {
+    if (!siteHeader) return;
+    if (!desktopQuery.matches) {
+      setHeaderCompact(false);
+      return;
+    }
+
+    setHeaderCompact(window.scrollY > 10);
+  }
+
+  let scrollTicking = false;
+  function onScroll() {
+    if (scrollTicking) return;
+    scrollTicking = true;
+    window.requestAnimationFrame(() => {
+      scrollTicking = false;
+      syncHeaderToScroll();
+    });
+  }
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+  desktopQuery.addEventListener("change", syncHeaderToScroll);
+  syncHeaderToScroll();
 
   if (!navToggle || !navList) return;
 
@@ -50,8 +82,7 @@
   });
 
   // When moving from mobile -> desktop, ensure the list is visible again.
-  const mediaQuery = window.matchMedia("(min-width: 769px)");
-  mediaQuery.addEventListener("change", (e) => {
+  desktopQuery.addEventListener("change", (e) => {
     if (e.matches) setOpen(false);
   });
 })();

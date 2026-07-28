@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>contact</title>
+    
+    <title> contact</title>
+    <link rel="icon" href="/makerspace-website/logos/page.webp" type="image/webp">
     <link rel="stylesheet" href="/makerspace-website/css/styles.css" />
 </head>
 <body>
@@ -11,7 +13,7 @@
 	<header class="site-header">
 	  <div class="container">
 	    <a href="/makerspace-website/" class="site-logo">
-	      <img src="/makerspace-website/logos/main-logo.webp" alt="OvTG Makerspace Logo" />
+	      <img src="/makerspace-website/logos/main-logo-large.webp" alt="OvTG Makerspace Logo" style="width: 230px; height: auto;" />
 	    </a>
 
 	    <button class="nav-toggle" type="button" aria-label="Menü" aria-expanded="false" aria-controls="site-nav-list">
@@ -23,39 +25,38 @@
 	    <nav class="site-nav">
 	      <ul id="site-nav-list">
 	        <li><a href="/makerspace-website/">Startseite</a></li>
-	        <li><a href="/makerspace-website/about">Über uns</a></li>
-	        <li><a href="/makerspace-website/contact">Kontakt</a></li>
-	        <li><a href="/makerspace-website/courses">Kurse</a></li>
+	        <li><a href="/makerspace-website/ueber-uns">Über uns</a></li>
+	        <li><a href="/makerspace-website/kurse">Kurse</a></li>
+			<li><a href="/makerspace-website/kontakt">Kontakt</a></li>
 	      </ul>
 	    </nav>
 	  </div>
 	</header>
 
 <main class="site-main">
-    <section class="contact container">
-    <h2>Kontakt</h2>
-    <p>Verwenden Sie das Formular unten, um uns zu erreichen — Platzhaltertext.</p>
+    <section class="contact">
+    <div class="container">
+        <div class="contact-hero">
+            <h2>Kontakt</h2>
+            <p>Schreiben Sie uns eine Nachricht – wir melden uns schnellstmöglich.</p>
+        </div>
 
-    <form action="/send-message" method="POST">
-        <label for="name">Ihr Name</label>
-        <input type="text" id="name" name="name" placeholder="Geben Sie Ihren Namen ein" />
 
-        <label for="email">E-Mail</label>
-        <input type="email" id="email" name="email" placeholder="Geben Sie Ihre E-Mail-Adresse ein" />
-
-        <label for="message">Nachricht</label>
-        <textarea id="message" name="message" placeholder="Ihre Nachricht hier"></textarea>
-
-        <button type="submit">Nachricht senden</button>
-    </form>
+        <div class="contact-top-cta">
+            <a class="btn help-mailto-btn" href="mailto:simonkorten09@gmail.com?subject=Kontakt%20OvTG%20Makerspace" rel="nofollow">
+                <span class="help-search-text">Zur E-Mail</span>
+            </a>
+        </div>
+    </div>
 </section>
 </main>
 
 	<footer class="site-footer">
-    <div class="container">
-        <p>© 2026 OvTG Makerspace • Alle Rechte vorbehalten.</p>
-        <small>Platzhalter Fußzeile</small>
-    </div>
+	    <div class="container">
+	        <p>© 2026 OvTG Makerspace • Alle Rechte vorbehalten.</p>
+	        <a href="https://github.com/OvTG-Makerspace/makerspace-website" target="_blank" rel="noopener">GitHub Source</a>
+	        <a href="/makerspace-website/impressum">Impressum und Datenschutz</a>
+	    </div>
 	</footer>
 
 	<script src="/makerspace-website/js/nav.js" defer></script>

@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>about</title>
+    
+    <title> about</title>
+    <link rel="icon" href="/makerspace-website/logos/page.webp" type="image/webp">
     <link rel="stylesheet" href="/makerspace-website/css/styles.css" />
 </head>
 <body>
@@ -11,7 +13,7 @@
 	<header class="site-header">
 	  <div class="container">
 	    <a href="/makerspace-website/" class="site-logo">
-	      <img src="/makerspace-website/logos/main-logo.webp" alt="OvTG Makerspace Logo" />
+	      <img src="/makerspace-website/logos/main-logo-large.webp" alt="OvTG Makerspace Logo" style="width: 230px; height: auto;" />
 	    </a>
 
 	    <button class="nav-toggle" type="button" aria-label="Menü" aria-expanded="false" aria-controls="site-nav-list">
@@ -23,38 +25,69 @@
 	    <nav class="site-nav">
 	      <ul id="site-nav-list">
 	        <li><a href="/makerspace-website/">Startseite</a></li>
-	        <li><a href="/makerspace-website/about">Über uns</a></li>
-	        <li><a href="/makerspace-website/contact">Kontakt</a></li>
-	        <li><a href="/makerspace-website/courses">Kurse</a></li>
+	        <li><a href="/makerspace-website/ueber-uns">Über uns</a></li>
+	        <li><a href="/makerspace-website/kurse">Kurse</a></li>
+			<li><a href="/makerspace-website/kontakt">Kontakt</a></li>
 	      </ul>
 	    </nav>
 	  </div>
 	</header>
 
 <main class="site-main">
-    <section class="about container">
-    <h2>Über uns</h2>
-    <p>
-        Platzhalter-Abschnitt, der die Organisation, Mission oder den Hintergrund beschreibt.
-        Dieser Bereich spiegelt eine kurze Zusammenfassung wider, ähnlich den einleitenden Panels auf Bildungs- oder Gemeindeseiten. :contentReference[oaicite:1]{index=1}
-    </p>
+    <section class="about">
+    <div class="container">
+        <h2 class="section-title">Über uns</h2>
+        <p class="section-text">
+            Der Makerspace dient sowohl als Werkraum für Projekte als auch als Ansprechpartner für handwerkliche Problemlösungen.
+        </p>
 
-    <h3>Was wir anbieten</h3>
-    <ul>
-        <li>Platzhalter-Detail 1</li>
-        <li>Platzhalter-Detail 2</li>
-        <li>Platzhalter-Detail 3</li>
-    </ul>
+        <div class="about-blocks">
+            <div class="about-block">
+                <h3>Unsere Aufgabe</h3>
+                <p>Das Ziel des Makerspace ist es, eine offene Werkstatt für erfinderisch und praktisch veranlagten Schülerinnen und Schülern zu sein, in der ihnen ohne Hürden die Mittel zur Umsetzung kreativer Projekte frei zur Verfügung stehen. Die Makerspace-AG arbeitet an Projekten für die Schulleitung, die SMV und das Lehrerkollegium. Das Kernteam leitet Fortbildungen und steht euch jederzeit als Fachberatung zur Verfügung.</p>
+            </div>
+            <div class="about-block">
+                <h3>Die Entstehung</h3>
+                <p>Seit Jahrzehnten fördert das Otto-von-Taube Gymnasium Forschungsprojekte, die Teilnahme an Wettbewerben wie Jugend-forscht und Zusatzinhalte im MINT-Bereich. Über die Zeit hinweg wurde es klar, dass eine Schülerwerkstatt benötigt wird, um die Projekte effektiver voranzubringen. Hier ist der Makerspace entstanden: Mithilfe von motivierten SchülerInnen gründeten Dr. Ralf Laupitz und Thomas Frank, zwei Lehrer des OvTG, 2025 den Wahlkurs und das Kernteam. Ein Jahr und ein paar erste Projekte später beginnen wir nun, euch den Makerspace näherzubringen. </p>
+            </div>
+        </div>
 
-    <p>Weitere Platzhaltertexte, die Werte, Ziele oder Kernbereiche erläutern.</p>
+        <h2 class="section-title">Der Vorstand</h2>
+        <p class="section-text" >
+            Der Vorstand ist verantwortlich für das Organisieren und Instandhalten des Makerspace. Er kümmert sich um die Versorgung mit Material, interne Projekte, Schulveranstaltungen und ist euer Ansprechpartner, wenn ihr Fragen habt.
+        </p>
+        <div class="team-grid">
+            <article class="team-card">
+                <img src="/makerspace-website/images/team/member-1.webp" alt="Teammitglied" class="team-photo">
+                <h4>Timo Perkert</h4>
+                <p>Gründungsmitglied | Kl. 11b</p>
+            </article>
+            <article class="team-card">
+                <img src="/makerspace-website/images/team/member-2.webp" alt="Teammitglied" class="team-photo">
+                <h4>Simon Korten</h4>
+                <p>Gründungsmitglied | Kl. 11b</p>
+            </article>
+            <article class="team-card">
+                <img src="/makerspace-website/images/team/member-3.webp" alt="Teammitglied" class="team-photo">
+                <h4>Carola Albrecht</h4>
+                <p>Gründungsmitglied | Kl. 11b</p>
+            </article>
+            <article class="team-card">
+                <img src="/makerspace-website/images/team/member-4.webp" alt="Teammitglied" class="team-photo">
+                <h4>Niklas Großkopf</h4>
+                <p>Klasse 8d</p>
+            </article>
+        </div>
+    </div>
 </section>
 </main>
 
 	<footer class="site-footer">
-    <div class="container">
-        <p>© 2026 OvTG Makerspace • Alle Rechte vorbehalten.</p>
-        <small>Platzhalter Fußzeile</small>
-    </div>
+	    <div class="container">
+	        <p>© 2026 OvTG Makerspace • Alle Rechte vorbehalten.</p>
+	        <a href="https://github.com/OvTG-Makerspace/makerspace-website" target="_blank" rel="noopener">GitHub Source</a>
+	        <a href="/makerspace-website/impressum">Impressum und Datenschutz</a>
+	    </div>
 	</footer>
 
 	<script src="/makerspace-website/js/nav.js" defer></script>

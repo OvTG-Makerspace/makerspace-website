@@ -2,48 +2,52 @@
     <div class="container">
         <div class="contact-hero">
             <h2>Kontakt</h2>
-            <p>Schreiben Sie uns eine Nachricht – wir melden uns schnellstmöglich.</p>
-        </div>
 
-        {{#if success}}
-            <div class="notice notice-success">{{success}}</div>
-        {{/if}}
-        {{#if error}}
-            <div class="notice notice-error">{{error}}</div>
-        {{/if}}
+            <form   action="https://formspree.io/f/mgogdlez" method="POST">
 
-        <div class="contact-top-cta">
-            <a class="btn help-mailto-btn" href="mailto:simonkorten09@gmail.com?subject=Kontakt%20OvTG%20Makerspace" rel="nofollow">
-                {{!-- <span class="help-search-icon" aria-hidden="true">✉</span> --}}
-                <span class="help-search-text">Zur E-Mail</span>
-            </a>
-        </div>
-        {{!-- <div class="contact grid">
-            <div class="contact-card contact-top">
-                <div class="contact-top-inner">
-                    <div class="contact-top-copy">
-                        <h3>So erreichen Sie uns</h3>
-                        <p>Wir freuen uns auf Ihre Ideen, Projekte und Fragen.</p>
-                        <ul>
-                            <li><strong>E-Mail:</strong> info@makerspace.local</li>
-                            <li><strong>Standort:</strong> Beispielstraße 12, 00000 Musterstadt</li>
-                            <li><strong>Öffnungszeiten:</strong> Mo–Fr 14:00–20:00</li>
-                        </ul>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">E-Mail</label>
+                        <input type="email" id="email" name="email" required>
                     </div>
                 </div>
-            </div> --}}
 
-            <div class="contact-card contact-help">
-                <h3>Das Wichtigste auf einen Blick</h3>
-                <div class="help-links">
-                    {{#each helpArticles}}
-                        <a class="help-link-card btn" href="{{href}}">
-                            <h4>{{title}}</h4>
-                            <p>{{desc}}</p>
-                        </a>
-                    {{/each}}
+                <div class="form-group full-width">
+                    <label for="message">Nachricht</label>
+                    <textarea id="message" name="message" required></textarea>
                 </div>
-            </div>
-        {{!-- </div> --}}
+
+                <div class="form-group checkbox-group">
+                    <label>
+                        <input type="checkbox" name="datenschutz" required>
+                        <span>
+                            Ich bestätige die Datenschutzerklärung und bin damit einverstanden, dass meine Daten zum Zwecke der Kontaktaufnahme gespeichert und verwendet werden.
+                            <a href="/impressum">Datenschutzerklärung</a>
+                        </span>
+                    </label>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn">
+                        Senden
+                    </button>
+                </div>
+
+            </form>
+
+            {{#if success}}
+            <div class="notice notice-success">{{success}}</div>
+            {{/if}}
+
+            {{#if error}}
+            <div class="notice notice-error">{{error}}</div>
+            {{/if}}
+
+        </div>
     </div>
 </section>
