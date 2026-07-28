@@ -60,47 +60,95 @@
         </div>
 
         <div class="help-article-body">
-            <h2>Wie kannst du uns finden?</h2>
-            <p>
-                Der MakerSpace befindet sich in Raum A301, neben dem Computerraum Ost.<br>
-                Wir sind in den meisten Pausen für dich da, aber du kannst dich auch mit einem <a href="/ueber-uns">Kernteammitglied</a> absprechen.
-            </p>
-        </div>
-        
-        <div class="help-article-body">
-            <h2>Was kannst du bei uns machen?</h2>
-            <p>
-                Um deine Projekte zu verwirklichen, bietet der Makerspace dir Platz, Werkzeuge und Materialien. Die Nutzung ist kostenlos – sprich dich einfach mit dem Kernteam ab.
-                Wir sind für die verschiedensten Schulprojekte offen, sei es die Teilnahme an Wettbewerben wie Jugend Forscht oder praktische Gruppenarbeit im Rahmen des Unterrichts.
-                Die Nutzung des Makerspace ist allerdings nicht nur auf den schulischen Rahmen beschränkt. Wenn du einen coolen Einfall Realität werden lassen willst, spontan einen 3D-Drucker oder
-                andere Werkzeuge brauchst oder einfach nach einem ruhigen Arbeitsort suchst, bist du bei uns genau richtig!<br>
-            </p>
+            <button class="faq-question">
+                <span>Wie kannst du uns finden?</span>
+                <span class="faq-icon">+</span>
+            </button>
+
+            <div class="faq-answer">
+                <p>
+                    Der MakerSpace befindet sich in Raum A301, neben dem Computerraum Ost.<br>
+                    Wir sind in den meisten Pausen für dich da, aber du kannst dich auch mit einem
+                    <a href="/ueber-uns" class="gradient-link">Vorstand</a> absprechen.
+                </p>
+            </div>
         </div>
 
         <div class="help-article-body">
-            <h2>Welche Regeln muss ich beachten?</h2>
-            <p>
-                Bitte beachte folgende Grundregeln bei der Benutzung des Raumes:
-            </p>
-            <ul>
-                <li>Um Geräte des Makerspace zu nutzen, ist eine Erlaubnis und Einweisung durch den Makerspace-Vorstand oder das Kernteam nötig.</li>
-                <li>Einige wenige Werkzeuge dürfen nur unter Beaufsichtigung einer Lehrkraft benutzt werden.</li>
-                <li>Wenn du Materialien in einer der Kisten in unserem Regal lagerst, sollten diese mit Projektnamen und Kontaktinformationen eines Verantwortlichen beschriftet sein.</li>
-                <li>Bei Fragen bezüglich der Nutzung des Makerspace oder Organisation deines Projekts steht das Kernteam gerne zur Verfügung.</li>
-            </ul>
+            <button class="faq-question">
+                <span>Was kannst du bei uns machen?</span>
+                <span class="faq-icon">+</span>
+            </button>
+
+            <div class="faq-answer">
+                <p>
+                    Um deine Projekte zu verwirklichen, bietet der Makerspace dir Platz, Werkzeuge und Materialien.
+                    Die Nutzung ist kostenlos – sprich dich einfach mit dem Vorstand ab oder
+                    <a href="/kontakt" class="gradient-link">schreib uns eine E-Mail</a>.
+                    Wir sind für die verschiedensten Schulprojekte offen, sei es die Teilnahme an Wettbewerben wie
+                    Jugend Forscht oder praktische Gruppenarbeit im Rahmen des Unterrichts.
+                    Die Nutzung des Makerspace ist allerdings nicht nur auf den schulischen Rahmen beschränkt.
+                    Wenn du einen coolen Einfall Realität werden lassen willst, spontan einen 3D-Drucker oder
+                    andere Werkzeuge brauchst oder einfach nach einem ruhigen Arbeitsort suchst,
+                    bist du bei uns genau richtig!
+                </p>
+            </div>
         </div>
 
         <div class="help-article-body">
-            <h2>Was ist die Makerspace-AG?</h2>
-            <p>
-                Die Mitglieder der Makerspace-AG kümmert sich um den Makerspace selbst. Wir planen unsere Teilnahme an Schulveranstaltungen und die Erweiterung unserer Möglichkeiten.
-                Außerdem übernehmen wir von der Schule beauftragte Projekte.<br>
-                Die Treffen der AG finden jeden Donnerstag in der 9. Stunde von 15:15 bis 16:00 Uhr statt.
-            </p>
+            <button class="faq-question">
+                <span>Welche Regeln muss ich beachten?</span>
+                <span class="faq-icon">+</span>
+            </button>
+
+            <div class="faq-answer">
+                <p>Bitte beachte folgende Grundregeln bei der Benutzung des Raumes:</p>
+
+                <ul>
+                    <li>Um Geräte des Makerspace zu nutzen, ist eine Erlaubnis und Einweisung durch den Makerspace-Vorstand oder das Kernteam nötig.</li>
+                    <li>Einige wenige Werkzeuge dürfen nur unter Beaufsichtigung einer Lehrkraft benutzt werden.</li>
+                    <li>Wenn du Materialien in einer der Kisten in unserem Regal lagerst, sollten diese mit Projektnamen und Kontaktinformationen eines Verantwortlichen beschriftet sein.</li>
+                    <li>Bei Fragen bezüglich der Nutzung des Makerspace oder Organisation deines Projekts steht das Kernteam gerne zur Verfügung.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="help-article-body">
+            <button class="faq-question">
+                <span>Was ist die Makerspace-AG?</span>
+                <span class="faq-icon">+</span>
+            </button>
+
+            <div class="faq-answer">
+                <p>
+                    Die Mitglieder der Makerspace-AG kümmern sich um den Makerspace selbst.
+                    Wir planen unsere Teilnahme an Schulveranstaltungen und die Erweiterung unserer Möglichkeiten.
+                    Außerdem übernehmen wir von der Schule beauftragte Projekte.<br><br>
+
+                    Die Treffen der AG finden jeden Donnerstag in der 9. Stunde von
+                    15:15 bis 16:00 Uhr statt.
+                </p>
+            </div>
         </div>
     </div>
 </section>
 
+<script>
+document.querySelectorAll(".faq-question").forEach(button => {
+    button.addEventListener("click", () => {
+        const item = button.parentElement;
+        const isOpen = item.classList.contains("active");
+
+        document.querySelectorAll(".help-article-body").forEach(el => {
+            el.classList.remove("active");
+        });
+
+        if (!isOpen) {
+            item.classList.add("active");
+        }
+    });
+});
+</script>
 <section class="support">
     <div class="container">
         <h2 class="section-title">Unsere Partner</h2>
