@@ -443,6 +443,25 @@ h2.section-title-centered {
     line-height: 1.25;
 }
 
+.psem-doc h3 {
+    margin: 1.5rem 0 0.65rem;
+    color: var(--text);
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    line-height: 1.3;
+}
+
+.psem-doc blockquote {
+    margin: 0 0 1.25rem;
+    padding: 1rem 1.25rem;
+    background: var(--surface);
+    border-left: 4px solid var(--accent);
+}
+
+.psem-doc blockquote p:last-child {
+    margin-bottom: 0;
+}
+
 .psem-doc .doc-figure {
     display: block;
 }
@@ -503,6 +522,83 @@ h2.section-title-centered {
 .psem-doc .img-phase-3 .doc-img {
     height: 190px;
     object-position: 50% 62%;
+}
+
+.psem-doc .img-3d-h2d {
+    float: right;
+    width: min(44vw, 430px);
+    margin: 0.25rem 0 1rem 1.5rem;
+}
+
+.psem-doc .img-3d-h2d .doc-img {
+    height: 270px;
+    object-position: 50% 50%;
+}
+
+.psem-doc .img-3d-x1c {
+    float: left;
+    width: min(42vw, 400px);
+    margin: 0.25rem 1.5rem 1rem 0;
+}
+
+.psem-doc .img-3d-x1c .doc-img {
+    height: 255px;
+    object-position: 50% 50%;
+}
+
+.psem-doc .img-3d-filament {
+    float: right;
+    width: min(42vw, 410px);
+    margin: 0.25rem 0 1rem 1.5rem;
+}
+
+.psem-doc .img-3d-filament .doc-img {
+    height: 255px;
+    object-position: 50% 50%;
+}
+
+.psem-doc .img-laser-toolhead {
+    float: right;
+    width: min(42vw, 400px);
+    margin: 0.25rem 0 1rem 1.5rem;
+}
+
+.psem-doc .img-laser-toolhead .doc-img {
+    height: 255px;
+    object-position: 50% 50%;
+}
+
+.psem-doc .img-laser-filter {
+    float: left;
+    width: min(32vw, 300px);
+    margin: 0.25rem 1.5rem 1rem 0;
+}
+
+.psem-doc .img-laser-filter .doc-img {
+    height: 330px;
+    object-position: 50% 50%;
+}
+
+.psem-doc .img-software {
+    width: min(52vw, 520px);
+    margin-top: 0.25rem;
+    margin-bottom: 1rem;
+}
+
+.psem-doc .img-software-right {
+    float: right;
+    margin-left: 1.5rem;
+}
+
+.psem-doc .img-software-left {
+    float: left;
+    margin-right: 1.5rem;
+}
+
+.psem-doc .img-software .doc-img {
+    height: 270px;
+    object-fit: contain;
+    padding: 0.35rem;
 }
 
 .psem-doc .clear {
@@ -1210,6 +1306,75 @@ button:not(.carousel-btn):not(.nav-toggle):active,
 
     .psem-doc .img-phase-3 .doc-img {
         height: 21vw;
+    }
+
+    .psem-doc .img-3d-h2d {
+        float: right;
+        width: 44vw;
+        margin: 0.2rem 0 0.75rem 0.85rem;
+    }
+
+    .psem-doc .img-3d-h2d .doc-img {
+        height: 27.6vw;
+    }
+
+    .psem-doc .img-3d-x1c {
+        float: left;
+        width: 42vw;
+        margin: 0.2rem 0.85rem 0.75rem 0;
+    }
+
+    .psem-doc .img-3d-x1c .doc-img {
+        height: 26.8vw;
+    }
+
+    .psem-doc .img-3d-filament {
+        float: right;
+        width: 42vw;
+        margin: 0.2rem 0 0.75rem 0.85rem;
+    }
+
+    .psem-doc .img-3d-filament .doc-img {
+        height: 26.8vw;
+    }
+
+    .psem-doc .img-laser-toolhead {
+        float: right;
+        width: 42vw;
+        margin: 0.2rem 0 0.75rem 0.85rem;
+    }
+
+    .psem-doc .img-laser-toolhead .doc-img {
+        height: 26.8vw;
+    }
+
+    .psem-doc .img-laser-filter {
+        float: left;
+        width: 32vw;
+        margin: 0.2rem 0.85rem 0.75rem 0;
+    }
+
+    .psem-doc .img-laser-filter .doc-img {
+        height: 35vw;
+    }
+
+    .psem-doc .img-software {
+        width: 52vw;
+    }
+
+    .psem-doc .img-software-right {
+        float: right;
+        margin: 0.2rem 0 0.75rem 0.85rem;
+    }
+
+    .psem-doc .img-software-left {
+        float: left;
+        margin: 0.2rem 0.85rem 0.75rem 0;
+    }
+
+    .psem-doc .img-software .doc-img {
+        height: 28vw;
+        padding: 0.2rem;
     }
 
     .psem-doc .doc-figure figcaption {

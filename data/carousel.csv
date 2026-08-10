@@ -1,3 +1,5 @@
 image,title,subtitle,main,route
+/images/3d-printing/20260810-IMG_0065.webp, 3D-Druck im Makerspace, "Von der Idee zum Bauteil.", 3d-printing.html, /showcase/3d-printing
+/images/lasercutter/20260810-IMG_0086.webp, Lasercutter im Makerspace, "Präzises Schneiden und Gravieren.", lasercutter.html, /showcase/lasercutter
 /images/raketen-psem/IMG-20260429-WA0017.webp, P-Seminar Raketenbau, "Per aspera ad astra!", psem-rakbau.html, /showcase/psem-rakbau
 /images/website/github-website.webp, Makerspace Website, "Open Source, Open Minds!", makerspace-website.html , https://github.com/OvTG-Makerspace/makerspace-website
