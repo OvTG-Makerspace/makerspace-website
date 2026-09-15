@@ -11,6 +11,18 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const DATA_PATH = path.join(__dirname, "data", "carousel.csv");
 const CONTENT_DIR = path.join(__dirname, "content");
+const COURSE_CALENDAR_ICS_URL =
+  process.env.COURSE_CALENDAR_ICS_URL ||
+  "https://calendar.proton.me/api/calendar/v1/url/fjtyvWgqi06fANvgUG0zEbLeazZmFctZs6b2EUgBTZq3u9sbM81LeVb259Tt_qwvRG6_jHYMb1oyigY4BrxdvA==/calendar.ics?CacheKey=_U2UPZY99QCfYk0kE0XWQQ==&PassphraseKey=YiYjKJxB6plY0ljZzlaSnXjDS1oV66OpFljt9Eo6TXY=";
+const COURSE_EVENT_CACHE_MS = 10 * 60 * 1000;
+
+let nodeIcal = null;
+let triedLoadingNodeIcal = false;
+let courseEventCache = {
+  expiresAt: 0,
+  events: [],
+  error: "",
+};
 
 class CarouselEntry {
   constructor({ image, title, subtitle, main, route, redirect }) {
@@ -91,6 +103,176 @@ function resolveContentPath(mainFile) {
     throw new Error(`Invalid main path: ${mainFile}`);
   }
   return resolved;
+}
+
+function getNodeIcal() {
+  if (triedLoadingNodeIcal) return nodeIcal;
+  triedLoadingNodeIcal = true;
+
+  try {
+    nodeIcal = require("node-ical");
+  } catch (err) {
+    nodeIcal = null;
+  }
+
+  return nodeIcal;
+}
+
+function decodeIcsValue(value) {
+  return String(value || "")
+    .replace(/\\n/g, "\n")
+    .replace(/\\,/g, ",")
+    .replace(/\\;/g, ";")
+    .replace(/\\\\/g, "\\")
+    .trim();
+}
+
+function unfoldIcsLines(text) {
+  return String(text || "").replace(/\r?\n[ \t]/g, "");
+}
+
+function parseIcsDate(value) {
+  const raw = String(value || "").trim();
+  const match = raw.match(/^(\d{4})(\d{2})(\d{2})(?:T(\d{2})(\d{2})(\d{2})?)?(Z)?$/);
+  if (!match) return null;
+
+  const [, year, month, day, hour = "00", minute = "00", second = "00", utc] = match;
+  if (utc) {
+    return new Date(Date.UTC(Number(year), Number(month) - 1, Number(day), Number(hour), Number(minute), Number(second)));
+  }
+
+  return new Date(Number(year), Number(month) - 1, Number(day), Number(hour), Number(minute), Number(second));
+}
+
+function parseIcsFallback(text) {
+  const lines = unfoldIcsLines(text).split(/\r?\n/);
+  const events = [];
+  let currentEvent = null;
+
+  for (const line of lines) {
+    if (line === "BEGIN:VEVENT") {
+      currentEvent = { type: "VEVENT" };
+      continue;
+    }
+
+    if (line === "END:VEVENT") {
+      if (currentEvent) events.push(currentEvent);
+      currentEvent = null;
+      continue;
+    }
+
+    if (!currentEvent) continue;
+
+    const separator = line.indexOf(":");
+    if (separator === -1) continue;
+
+    const rawKey = line.slice(0, separator);
+    const key = rawKey.split(";")[0].toUpperCase();
+    const value = line.slice(separator + 1);
+
+    if (key === "SUMMARY") currentEvent.summary = decodeIcsValue(value);
+    if (key === "LOCATION") currentEvent.location = decodeIcsValue(value);
+    if (key === "DESCRIPTION") currentEvent.description = decodeIcsValue(value);
+    if (key === "STATUS") currentEvent.status = decodeIcsValue(value);
+    if (key === "UID") currentEvent.uid = decodeIcsValue(value);
+    if (key === "DTSTART") currentEvent.start = parseIcsDate(value);
+    if (key === "DTEND") currentEvent.end = parseIcsDate(value);
+  }
+
+  return events;
+}
+
+function formatCourseEventDate(date) {
+  return new Intl.DateTimeFormat("de-DE", {
+    weekday: "short",
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZone: "Europe/Berlin",
+  }).format(date);
+}
+
+function normalizeCourseEvents(rawEvents) {
+  const now = new Date();
+  const horizon = new Date(now.getTime() + 365 * 24 * 60 * 60 * 1000);
+  const ical = getNodeIcal();
+  const expandedEvents = [];
+
+  for (const event of rawEvents) {
+    if (!event || event.type !== "VEVENT") continue;
+
+    if (event.rrule && ical && typeof ical.expandRecurringEvent === "function") {
+      expandedEvents.push(...ical.expandRecurringEvent(event, { from: now, to: horizon }));
+    } else {
+      expandedEvents.push(event);
+    }
+  }
+
+  return expandedEvents
+    .filter((event) => {
+      const start = event.start instanceof Date ? event.start : null;
+      const status = String(event.status || "").toUpperCase();
+      return start && start >= now && start <= horizon && status !== "CANCELLED";
+    })
+    .sort((a, b) => a.start - b.start)
+    .slice(0, 30)
+    .map((event) => {
+      const summary = String(event.summary || "Kurs ohne Titel").trim();
+      const start = event.start;
+      const dateLabel = formatCourseEventDate(start);
+      return {
+        title: summary,
+        dateLabel,
+        location: String(event.location || "").trim(),
+        value: `${start.toISOString()} | ${summary}`,
+        label: `${dateLabel} – ${summary}`,
+      };
+    });
+}
+
+async function fetchIcsText(url) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 6000);
+
+  try {
+    const response = await fetch(url, { signal: controller.signal });
+    if (!response.ok) throw new Error(`Calendar feed returned ${response.status}`);
+    return await response.text();
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+async function loadFutureCourseEvents() {
+  const now = Date.now();
+  if (courseEventCache.expiresAt > now) {
+    return courseEventCache;
+  }
+
+  try {
+    const icsText = await fetchIcsText(COURSE_CALENDAR_ICS_URL);
+    const ical = getNodeIcal();
+    const parsed = ical && ical.async && typeof ical.async.parseICS === "function"
+      ? Object.values(await ical.async.parseICS(icsText))
+      : parseIcsFallback(icsText);
+
+    courseEventCache = {
+      expiresAt: now + COURSE_EVENT_CACHE_MS,
+      events: normalizeCourseEvents(parsed),
+      error: "",
+    };
+  } catch (err) {
+    console.warn("Could not load course calendar feed:", err.message);
+    courseEventCache = {
+      expiresAt: now + 60 * 1000,
+      events: [],
+      error: "Kurse konnten gerade nicht aus dem Kalender geladen werden.",
+    };
+  }
+
+  return courseEventCache;
 }
 
 function loadCarouselEntries() {
@@ -221,6 +403,17 @@ app.get("/impressum", (req, res) => {
 app.get("/kurse", (req, res) => {
   res.render("courses", {
     title: "Kurse",
+  });
+});
+
+app.get("/kurse/anmeldung", async (req, res) => {
+  const { events, error } = await loadFutureCourseEvents();
+
+  res.render("course-signup", {
+    title: "Kursanmeldung",
+    courseEvents: events,
+    hasCourseEvents: events.length > 0,
+    courseEventsError: error,
   });
 });
 
