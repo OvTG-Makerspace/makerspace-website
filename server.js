@@ -3,10 +3,7 @@
 const express = require("express");
 const path = require("path");
 const fs = require("fs");
-const nodemailer = require("nodemailer");
 const exphbs = require("express-handlebars");
-// const hbsMailerImport = require("nodemailer-express-handlebars");
-// const hbsMailer = typeof hbsMailerImport === "function" ? hbsMailerImport : hbsMailerImport.default;
 
 require("dotenv").config();
 
@@ -14,44 +11,6 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const DATA_PATH = path.join(__dirname, "data", "carousel.csv");
 const CONTENT_DIR = path.join(__dirname, "content");
-
-const smtpPort = Number(process.env.SMTP_PORT || 1025);
-const smtpSecure = String(process.env.SMTP_SECURE || "false").toLowerCase() === "true";
-const smtpUser = process.env.SMTP_USER || "";
-const smtpPass = process.env.SMTP_PASS || "";
-const smtpFrom = process.env.SMTP_FROM || "no-reply@makerspace.ovtg.de";
-const adminEmail = process.env.ADMIN_EMAIL || "admin@example.com";
-
-// const transporter = nodemailer.createTransport({
-//   host: process.env.SMTP_HOST || "127.0.0.1",
-//   port: Number.isFinite(smtpPort) ? smtpPort : 1025,
-//   secure: smtpSecure,
-//   auth: smtpUser ? { user: smtpUser, pass: smtpPass } : undefined,
-// });
-
-// if (typeof hbsMailer !== "function") {
-//   throw new Error("nodemailer-express-handlebars did not export a function (check module format/version).");
-// }
-
-// transporter.use("compile", hbsMailer({
-//   viewEngine: {
-//     extname: ".hbs",
-//     layoutsDir: path.join(__dirname, "views"),
-//     defaultLayout: false,
-//     partialsDir: path.join(__dirname, "views/partials"),
-//   },
-//   viewPath: path.join(__dirname, "views/emails"),
-//   extName: ".hbs",
-// }));
-
-function stripHeaderNewlines(value) {
-  return String(value || "").replace(/[\r\n]+/g, " ").trim();
-}
-
-function isLikelyEmail(value) {
-  const v = String(value || "").trim();
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
-}
 
 class CarouselEntry {
   constructor({ image, title, subtitle, main, route, redirect }) {
@@ -257,63 +216,6 @@ app.get("/impressum", (req, res) => {
   res.render("impressum", {
     title: "Impressum",
   });
-});
-
-app.post("/contact", async (req, res) => {
-  const name = String(req.body.name || "").trim();
-  const email = String(req.body.email || "").trim();
-  const message = String(req.body.message || "").trim();
-
-  if (!name || !email || !message) {
-    return res.render("contact", {
-      title: "Contact",
-      error: "Bitte füllen Sie alle Felder aus.",
-      form: { name, email, message },
-      helpArticles,
-    });
-  }
-
-  if (!isLikelyEmail(email)) {
-    return res.render("contact", {
-      title: "Contact",
-      error: "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
-      form: { name, email, message },
-      helpArticles,
-    });
-  }
-
-  try {
-    // await transporter.sendMail({
-    //   to: adminEmail,
-    //   from: stripHeaderNewlines(smtpFrom),
-    //   replyTo: stripHeaderNewlines(email),
-    //   subject: stripHeaderNewlines(`Kontaktanfrage von ${name}`),
-    //   template: "contact",
-    //   context: {
-    //     submittedAt: new Date().toISOString(),
-    //     name,
-    //     email,
-    //     message,
-    //     ip: req.ip,
-    //     userAgent: req.get("user-agent") || "",
-    //   },
-    //   text: `Neue Kontaktanfrage\n\nName: ${name}\nE-Mail: ${email}\n\nNachricht:\n${message}\n\nIP: ${req.ip}\nUser-Agent: ${req.get("user-agent") || ""}\n`,
-    // });
-
-    return res.render("contact", {
-      title: "Contact",
-      success: "Vielen Dank! Ihre Nachricht wurde gesendet.",
-      helpArticles,
-    });
-  } catch (err) {
-    console.error("Contact form email failed:", err);
-    return res.render("contact", {
-      title: "Contact",
-      error: "Es gab ein Problem beim Senden der Nachricht. Bitte versuchen Sie es erneut.",
-      form: { name, email, message },
-      helpArticles,
-    });
-  }
 });
 
 app.get("/kurse", (req, res) => {
