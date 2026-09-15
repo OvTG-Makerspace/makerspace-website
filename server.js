@@ -13,7 +13,7 @@ const DATA_PATH = path.join(__dirname, "data", "carousel.csv");
 const CONTENT_DIR = path.join(__dirname, "content");
 const COURSE_CALENDAR_ICS_URL =
   process.env.COURSE_CALENDAR_ICS_URL ||
-  "https://calendar.proton.me/api/calendar/v1/url/fjtyvWgqi06fANvgUG0zEbLeazZmFctZs6b2EUgBTZq3u9sbM81LeVb259Tt_qwvRG6_jHYMb1oyigY4BrxdvA==/calendar.ics?CacheKey=_U2UPZY99QCfYk0kE0XWQQ==&PassphraseKey=YiYjKJxB6plY0ljZzlaSnXjDS1oV66OpFljt9Eo6TXY=";
+  "https://calendar.google.com/calendar/ical/21833c4765e38e0120db2aff7f85ecbdd794f30887575134c07c99bdebc1ebe4%40group.calendar.google.com/public/basic.ics";
 const COURSE_EVENT_CACHE_MS = 10 * 60 * 1000;
 
 let nodeIcal = null;
