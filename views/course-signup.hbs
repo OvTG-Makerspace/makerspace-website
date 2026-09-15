@@ -20,7 +20,8 @@
                 <a class="btn btn-outline" href="/fortbildungen">Interesse an anderem Thema eintragen</a>
             </aside>
 
-            <form class="course-signup-form" action="#" method="POST">
+            <form class="course-signup-form" action="https://formtorch.com/f/5pn1zgffur" method="POST">
+                <input type="hidden" name="_subject" value="Kursanmeldung Makerspace">
                 <div class="form-group full-width">
                     <label for="course-event">Kurs</label>
                     <select id="course-event" name="kurs" required {{#unless hasCourseEvents}}disabled{{/unless}}>
@@ -72,12 +73,8 @@
                     </label>
                 </div>
 
-                <p class="form-hint">
-                    Prototyp: Der Formular-Endpunkt für echte Kursanmeldungen ist noch nicht hinterlegt.
-                </p>
-
                 <div class="form-actions">
-                    <button type="submit" class="btn" disabled>Anmeldung absenden</button>
+                    <button type="submit" class="btn" {{#unless hasCourseEvents}}disabled{{/unless}}>Anmeldung absenden</button>
                 </div>
             </form>
         </div>
