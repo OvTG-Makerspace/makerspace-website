@@ -3,10 +3,7 @@
 const express = require("express");
 const path = require("path");
 const fs = require("fs");
-const nodemailer = require("nodemailer");
 const exphbs = require("express-handlebars");
-// const hbsMailerImport = require("nodemailer-express-handlebars");
-// const hbsMailer = typeof hbsMailerImport === "function" ? hbsMailerImport : hbsMailerImport.default;
 
 require("dotenv").config();
 
@@ -14,44 +11,18 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const DATA_PATH = path.join(__dirname, "data", "carousel.csv");
 const CONTENT_DIR = path.join(__dirname, "content");
+const COURSE_CALENDAR_ICS_URL =
+  process.env.COURSE_CALENDAR_ICS_URL ||
+  "https://calendar.google.com/calendar/ical/21833c4765e38e0120db2aff7f85ecbdd794f30887575134c07c99bdebc1ebe4%40group.calendar.google.com/public/basic.ics";
+const COURSE_EVENT_CACHE_MS = 10 * 60 * 1000;
 
-const smtpPort = Number(process.env.SMTP_PORT || 1025);
-const smtpSecure = String(process.env.SMTP_SECURE || "false").toLowerCase() === "true";
-const smtpUser = process.env.SMTP_USER || "";
-const smtpPass = process.env.SMTP_PASS || "";
-const smtpFrom = process.env.SMTP_FROM || "no-reply@makerspace.ovtg.de";
-const adminEmail = process.env.ADMIN_EMAIL || "admin@example.com";
-
-// const transporter = nodemailer.createTransport({
-//   host: process.env.SMTP_HOST || "127.0.0.1",
-//   port: Number.isFinite(smtpPort) ? smtpPort : 1025,
-//   secure: smtpSecure,
-//   auth: smtpUser ? { user: smtpUser, pass: smtpPass } : undefined,
-// });
-
-// if (typeof hbsMailer !== "function") {
-//   throw new Error("nodemailer-express-handlebars did not export a function (check module format/version).");
-// }
-
-// transporter.use("compile", hbsMailer({
-//   viewEngine: {
-//     extname: ".hbs",
-//     layoutsDir: path.join(__dirname, "views"),
-//     defaultLayout: false,
-//     partialsDir: path.join(__dirname, "views/partials"),
-//   },
-//   viewPath: path.join(__dirname, "views/emails"),
-//   extName: ".hbs",
-// }));
-
-function stripHeaderNewlines(value) {
-  return String(value || "").replace(/[\r\n]+/g, " ").trim();
-}
-
-function isLikelyEmail(value) {
-  const v = String(value || "").trim();
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
-}
+let nodeIcal = null;
+let triedLoadingNodeIcal = false;
+let courseEventCache = {
+  expiresAt: 0,
+  events: [],
+  error: "",
+};
 
 class CarouselEntry {
   constructor({ image, title, subtitle, main, route, redirect }) {
@@ -132,6 +103,176 @@ function resolveContentPath(mainFile) {
     throw new Error(`Invalid main path: ${mainFile}`);
   }
   return resolved;
+}
+
+function getNodeIcal() {
+  if (triedLoadingNodeIcal) return nodeIcal;
+  triedLoadingNodeIcal = true;
+
+  try {
+    nodeIcal = require("node-ical");
+  } catch (err) {
+    nodeIcal = null;
+  }
+
+  return nodeIcal;
+}
+
+function decodeIcsValue(value) {
+  return String(value || "")
+    .replace(/\\n/g, "\n")
+    .replace(/\\,/g, ",")
+    .replace(/\\;/g, ";")
+    .replace(/\\\\/g, "\\")
+    .trim();
+}
+
+function unfoldIcsLines(text) {
+  return String(text || "").replace(/\r?\n[ \t]/g, "");
+}
+
+function parseIcsDate(value) {
+  const raw = String(value || "").trim();
+  const match = raw.match(/^(\d{4})(\d{2})(\d{2})(?:T(\d{2})(\d{2})(\d{2})?)?(Z)?$/);
+  if (!match) return null;
+
+  const [, year, month, day, hour = "00", minute = "00", second = "00", utc] = match;
+  if (utc) {
+    return new Date(Date.UTC(Number(year), Number(month) - 1, Number(day), Number(hour), Number(minute), Number(second)));
+  }
+
+  return new Date(Number(year), Number(month) - 1, Number(day), Number(hour), Number(minute), Number(second));
+}
+
+function parseIcsFallback(text) {
+  const lines = unfoldIcsLines(text).split(/\r?\n/);
+  const events = [];
+  let currentEvent = null;
+
+  for (const line of lines) {
+    if (line === "BEGIN:VEVENT") {
+      currentEvent = { type: "VEVENT" };
+      continue;
+    }
+
+    if (line === "END:VEVENT") {
+      if (currentEvent) events.push(currentEvent);
+      currentEvent = null;
+      continue;
+    }
+
+    if (!currentEvent) continue;
+
+    const separator = line.indexOf(":");
+    if (separator === -1) continue;
+
+    const rawKey = line.slice(0, separator);
+    const key = rawKey.split(";")[0].toUpperCase();
+    const value = line.slice(separator + 1);
+
+    if (key === "SUMMARY") currentEvent.summary = decodeIcsValue(value);
+    if (key === "LOCATION") currentEvent.location = decodeIcsValue(value);
+    if (key === "DESCRIPTION") currentEvent.description = decodeIcsValue(value);
+    if (key === "STATUS") currentEvent.status = decodeIcsValue(value);
+    if (key === "UID") currentEvent.uid = decodeIcsValue(value);
+    if (key === "DTSTART") currentEvent.start = parseIcsDate(value);
+    if (key === "DTEND") currentEvent.end = parseIcsDate(value);
+  }
+
+  return events;
+}
+
+function formatCourseEventDate(date) {
+  return new Intl.DateTimeFormat("de-DE", {
+    weekday: "short",
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZone: "Europe/Berlin",
+  }).format(date);
+}
+
+function normalizeCourseEvents(rawEvents) {
+  const now = new Date();
+  const horizon = new Date(now.getTime() + 365 * 24 * 60 * 60 * 1000);
+  const ical = getNodeIcal();
+  const expandedEvents = [];
+
+  for (const event of rawEvents) {
+    if (!event || event.type !== "VEVENT") continue;
+
+    if (event.rrule && ical && typeof ical.expandRecurringEvent === "function") {
+      expandedEvents.push(...ical.expandRecurringEvent(event, { from: now, to: horizon }));
+    } else {
+      expandedEvents.push(event);
+    }
+  }
+
+  return expandedEvents
+    .filter((event) => {
+      const start = event.start instanceof Date ? event.start : null;
+      const status = String(event.status || "").toUpperCase();
+      return start && start >= now && start <= horizon && status !== "CANCELLED";
+    })
+    .sort((a, b) => a.start - b.start)
+    .slice(0, 30)
+    .map((event) => {
+      const summary = String(event.summary || "Kurs ohne Titel").trim();
+      const start = event.start;
+      const dateLabel = formatCourseEventDate(start);
+      return {
+        title: summary,
+        dateLabel,
+        location: String(event.location || "").trim(),
+        value: `${start.toISOString()} | ${summary}`,
+        label: `${dateLabel} – ${summary}`,
+      };
+    });
+}
+
+async function fetchIcsText(url) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 6000);
+
+  try {
+    const response = await fetch(url, { signal: controller.signal });
+    if (!response.ok) throw new Error(`Calendar feed returned ${response.status}`);
+    return await response.text();
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+async function loadFutureCourseEvents() {
+  const now = Date.now();
+  if (courseEventCache.expiresAt > now) {
+    return courseEventCache;
+  }
+
+  try {
+    const icsText = await fetchIcsText(COURSE_CALENDAR_ICS_URL);
+    const ical = getNodeIcal();
+    const parsed = ical && ical.async && typeof ical.async.parseICS === "function"
+      ? Object.values(await ical.async.parseICS(icsText))
+      : parseIcsFallback(icsText);
+
+    courseEventCache = {
+      expiresAt: now + COURSE_EVENT_CACHE_MS,
+      events: normalizeCourseEvents(parsed),
+      error: "",
+    };
+  } catch (err) {
+    console.warn("Could not load course calendar feed:", err.message);
+    courseEventCache = {
+      expiresAt: now + 60 * 1000,
+      events: [],
+      error: "Kurse konnten gerade nicht aus dem Kalender geladen werden.",
+    };
+  }
+
+  return courseEventCache;
 }
 
 function loadCarouselEntries() {
@@ -259,66 +400,26 @@ app.get("/impressum", (req, res) => {
   });
 });
 
-app.post("/contact", async (req, res) => {
-  const name = String(req.body.name || "").trim();
-  const email = String(req.body.email || "").trim();
-  const message = String(req.body.message || "").trim();
-
-  if (!name || !email || !message) {
-    return res.render("contact", {
-      title: "Contact",
-      error: "Bitte füllen Sie alle Felder aus.",
-      form: { name, email, message },
-      helpArticles,
-    });
-  }
-
-  if (!isLikelyEmail(email)) {
-    return res.render("contact", {
-      title: "Contact",
-      error: "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
-      form: { name, email, message },
-      helpArticles,
-    });
-  }
-
-  try {
-    // await transporter.sendMail({
-    //   to: adminEmail,
-    //   from: stripHeaderNewlines(smtpFrom),
-    //   replyTo: stripHeaderNewlines(email),
-    //   subject: stripHeaderNewlines(`Kontaktanfrage von ${name}`),
-    //   template: "contact",
-    //   context: {
-    //     submittedAt: new Date().toISOString(),
-    //     name,
-    //     email,
-    //     message,
-    //     ip: req.ip,
-    //     userAgent: req.get("user-agent") || "",
-    //   },
-    //   text: `Neue Kontaktanfrage\n\nName: ${name}\nE-Mail: ${email}\n\nNachricht:\n${message}\n\nIP: ${req.ip}\nUser-Agent: ${req.get("user-agent") || ""}\n`,
-    // });
-
-    return res.render("contact", {
-      title: "Contact",
-      success: "Vielen Dank! Ihre Nachricht wurde gesendet.",
-      helpArticles,
-    });
-  } catch (err) {
-    console.error("Contact form email failed:", err);
-    return res.render("contact", {
-      title: "Contact",
-      error: "Es gab ein Problem beim Senden der Nachricht. Bitte versuchen Sie es erneut.",
-      form: { name, email, message },
-      helpArticles,
-    });
-  }
-});
-
 app.get("/kurse", (req, res) => {
   res.render("courses", {
     title: "Kurse",
+  });
+});
+
+app.get("/kurse/anmeldung", async (req, res) => {
+  const { events, error } = await loadFutureCourseEvents();
+
+  res.render("course-signup", {
+    title: "Kursanmeldung",
+    courseEvents: events,
+    hasCourseEvents: events.length > 0,
+    courseEventsError: error,
+  });
+});
+
+app.get("/fortbildungen", (req, res) => {
+  res.render("fortbildungen", {
+    title: "Fortbildungen",
   });
 });
 

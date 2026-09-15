@@ -3,23 +3,26 @@
         <div class="contact-hero">
             <h2>Kontakt</h2>
 
-            <form   action="https://formspree.io/f/mgogdlez" method="POST">
+            <form action="https://formtorch.com/f/ifwpryaprv" method="POST" data-validate-form novalidate>
 
                 <div class="form-row">
                     <div class="form-group">
                         <label for="name">Name</label>
                         <input type="text" id="name" name="name">
+                        <p class="field-error" data-field-error="name" hidden></p>
                     </div>
 
                     <div class="form-group">
                         <label for="email">E-Mail</label>
                         <input type="email" id="email" name="email" required>
+                        <p class="field-error" data-field-error="email" hidden></p>
                     </div>
                 </div>
 
                 <div class="form-group full-width">
                     <label for="message">Nachricht</label>
                     <textarea id="message" name="message" required></textarea>
+                    <p class="field-error" data-field-error="message" hidden></p>
                 </div>
 
                 <div class="form-group checkbox-group">
@@ -30,6 +33,7 @@
                             <a href="/impressum">Datenschutzerklärung</a>
                         </span>
                     </label>
+                    <p class="field-error" data-field-error="datenschutz" hidden></p>
                 </div>
 
                 <div class="form-actions">
@@ -39,14 +43,6 @@
                 </div>
 
             </form>
-
-            {{#if success}}
-            <div class="notice notice-success">{{success}}</div>
-            {{/if}}
-
-            {{#if error}}
-            <div class="notice notice-error">{{error}}</div>
-            {{/if}}
 
         </div>
     </div>

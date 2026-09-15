@@ -1,0 +1,86 @@
+<section class="course-signup-page">
+    <div class="container">
+        <div class="course-signup-intro">
+            <p class="eyebrow">Kurse</p>
+            <h2>Kursanmeldung</h2>
+            <p>
+                Wähle einen kommenden Kurs aus dem Kalender aus und trage deine Kontaktdaten ein.
+                Diese Seite ist für konkrete Kurse mit Termin gedacht. Wenn du nur Interesse an einem neuen Thema melden möchtest,
+                nutze stattdessen die Interessensabfrage.
+            </p>
+        </div>
+
+        <div class="course-signup-layout">
+            <aside class="course-signup-note">
+                <h3>Hinweis</h3>
+                <p>
+                    Die Kursliste wird automatisch aus dem Kalender geladen. Falls hier kein Kurs angezeigt wird,
+                    gibt es entweder aktuell keine zukünftigen Termine oder der Kalender konnte gerade nicht geladen werden.
+                </p>
+                <a class="btn btn-outline" href="/fortbildungen">Interesse an anderem Thema eintragen</a>
+            </aside>
+
+            <form class="course-signup-form" action="https://formtorch.com/f/5pn1zgffur" method="POST" data-validate-form novalidate>
+                <input type="hidden" name="_subject" value="Kursanmeldung Makerspace">
+                <div class="form-group full-width">
+                    <label for="course-event">Kurs</label>
+                    <select id="course-event" name="kurs" required {{#unless hasCourseEvents}}disabled{{/unless}}>
+                        {{#if hasCourseEvents}}
+                            <option value="">Bitte Kurs auswählen</option>
+                            {{#each courseEvents}}
+                                <option value="{{value}}">{{label}}</option>
+                            {{/each}}
+                        {{else}}
+                            <option value="">Keine zukünftigen Kurse gefunden</option>
+                        {{/if}}
+                    </select>
+                    <p class="field-error" data-field-error="course-event" hidden></p>
+                    {{#if courseEventsError}}
+                        <p class="form-hint">{{courseEventsError}}</p>
+                    {{/if}}
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="course-name">Name</label>
+                        <input type="text" id="course-name" name="name" required>
+                        <p class="field-error" data-field-error="course-name" hidden></p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="course-email">E-Mail</label>
+                        <input type="email" id="course-email" name="email" required>
+                        <p class="field-error" data-field-error="course-email" hidden></p>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="course-class">Klasse / Rolle</label>
+                        <input type="text" id="course-class" name="klasse_rolle" placeholder="z. B. 8a">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="course-note">Nachricht optional</label>
+                        <input type="text" id="course-note" name="nachricht">
+                    </div>
+                </div>
+
+                <div class="form-group checkbox-group">
+                    <label>
+                        <input type="checkbox" name="datenschutz" required>
+                        <span>
+                            Ich bestätige die Datenschutzerklärung und bin damit einverstanden, dass meine Angaben zur Kursanmeldung verarbeitet werden.
+                            <a href="/impressum">Datenschutzerklärung</a>
+                        </span>
+                    </label>
+                    <p class="field-error" data-field-error="datenschutz" hidden></p>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn" {{#unless hasCourseEvents}}disabled{{/unless}}>Anmeldung absenden</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

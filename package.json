@@ -24,6 +24,7 @@
     "express": "^5.2.1",
     "express-handlebars": "^8.0.4",
     "fs-extra": "^11.3.3",
+    "node-ical": "^0.27.2",
     "nodemailer": "^7.0.13",
     "nodemailer-express-handlebars": "^7.0.0"
   }
