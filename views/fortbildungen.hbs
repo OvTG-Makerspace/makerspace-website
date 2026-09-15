@@ -31,7 +31,7 @@
                 <p>Wähle den Bereich aus, der dich interessiert. Das Formular dient nur zur Auswertung des Interesses.</p>
             </div>
 
-            <form class="training-form" action="https://formtorch.com/f/q7h44v4mcz" method="POST">
+            <form class="training-form" action="https://formtorch.com/f/q7h44v4mcz" method="POST" data-validate-form novalidate>
                 <input type="hidden" name="_subject" value="Interessensabfrage Fortbildungen Makerspace">
                 <input type="hidden" name="hinweis" value="Unverbindliche Interessensabfrage, keine Anmeldung">
 
@@ -46,17 +46,20 @@
                             <option value="Elektronik und Mikrocontroller">Elektronik und Mikrocontroller</option>
                             <option value="Allgemeiner Makerspace-Einstieg">Allgemeiner Makerspace-Einstieg</option>
                         </select>
+                        <p class="field-error" data-field-error="training-area" hidden></p>
                     </div>
 
                     <div class="form-group">
                         <label for="training-name">Name</label>
                         <input type="text" id="training-name" name="name" required>
+                        <p class="field-error" data-field-error="training-name" hidden></p>
                     </div>
                 </div>
 
                 <div class="form-group full-width">
                     <label for="training-email">E-Mail</label>
                     <input type="email" id="training-email" name="email" required>
+                    <p class="field-error" data-field-error="training-email" hidden></p>
                 </div>
 
                 <div class="form-group checkbox-group">
@@ -67,6 +70,7 @@
                             <a href="/impressum">Datenschutzerklärung</a>
                         </span>
                     </label>
+                    <p class="field-error" data-field-error="datenschutz" hidden></p>
                 </div>
 
                 <div class="form-actions">

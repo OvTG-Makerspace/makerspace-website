@@ -1534,6 +1534,24 @@ button:not(.carousel-btn):not(.nav-toggle):active,
     border-width: 2px;
 }
 
+.form-group input.is-invalid,
+.form-group textarea.is-invalid,
+.form-group select.is-invalid {
+    border-color: #9a1010;
+}
+
+.field-error {
+    margin: -0.65rem 0 0.85rem;
+    color: #9a1010;
+    font-size: 0.9rem;
+    line-height: 1.35;
+    text-align: left;
+}
+
+.checkbox-group .field-error {
+    margin: 0.4rem 0 0;
+}
+
 /* Textarea */
 
 .form-group textarea {
