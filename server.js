@@ -322,6 +322,12 @@ app.get("/kurse", (req, res) => {
   });
 });
 
+app.get("/fortbildungen", (req, res) => {
+  res.render("fortbildungen", {
+    title: "Fortbildungen",
+  });
+});
+
 carouselEntries.forEach((entry) => {
   if (!entry.route) return;
 

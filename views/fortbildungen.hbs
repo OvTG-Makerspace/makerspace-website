@@ -1,0 +1,78 @@
+<section class="training-page">
+    <div class="container">
+        <div class="training-intro">
+            <p class="eyebrow">Fortbildungen</p>
+            <h2>Interesse an Fortbildungen</h2>
+            <p>
+                Der Makerspace möchte herausfinden, zu welchen Themen Schülerinnen und Schüler Fortbildungen besuchen würden.
+                Das Formular ist keine Anmeldung, sondern nur eine unverbindliche Interessensabfrage.
+            </p>
+        </div>
+
+        <div class="training-info-grid">
+            <article class="training-info-card">
+                <h3>Was soll ich tun?</h3>
+                <p>Wähle den Bereich aus, der dich interessiert, und gib deinen Namen sowie deine E-Mail-Adresse an.</p>
+            </article>
+            <article class="training-info-card">
+                <h3>Warum?</h3>
+                <p>So kann eingeschätzt werden, für welche Themen sich genug Personen interessieren.</p>
+            </article>
+            <article class="training-info-card">
+                <h3>Was passiert danach?</h3>
+                <p>Wenn genügend Interesse besteht, können daraus konkrete Fortbildungsangebote geplant werden.</p>
+            </article>
+        </div>
+
+        <div id="fortbildung-anfrage" class="training-form-section">
+            <div class="training-form-intro">
+                <p class="eyebrow">Interesse</p>
+                <h2>Unverbindlich eintragen</h2>
+                <p>Wähle den Bereich aus, der dich interessiert. Das Formular dient nur zur Auswertung des Interesses.</p>
+            </div>
+
+            <form class="training-form" action="https://formspree.io/f/mkjgwgde" method="POST">
+                <input type="hidden" name="_subject" value="Interessensabfrage Fortbildungen Makerspace">
+                <input type="hidden" name="hinweis" value="Unverbindliche Interessensabfrage, keine Anmeldung">
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="training-area">Bereich</label>
+                        <select id="training-area" name="bereich" required>
+                            <option value="">Bitte auswählen</option>
+                            <option value="3D-Druck">3D-Druck</option>
+                            <option value="Lasercutting">Lasercutting</option>
+                            <option value="CAD und Konstruktion">CAD und Konstruktion</option>
+                            <option value="Elektronik und Mikrocontroller">Elektronik und Mikrocontroller</option>
+                            <option value="Allgemeiner Makerspace-Einstieg">Allgemeiner Makerspace-Einstieg</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="training-name">Name</label>
+                        <input type="text" id="training-name" name="name" required>
+                    </div>
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="training-email">E-Mail</label>
+                    <input type="email" id="training-email" name="email" required>
+                </div>
+
+                <div class="form-group checkbox-group">
+                    <label>
+                        <input type="checkbox" name="datenschutz" required>
+                        <span>
+                            Ich bestätige die Datenschutzerklärung und bin damit einverstanden, dass meine Angaben zur Auswertung des Interesses und für mögliche Rückfragen verarbeitet werden.
+                            <a href="/impressum">Datenschutzerklärung</a>
+                        </span>
+                    </label>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn">Interesse absenden</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
