@@ -3,7 +3,8 @@
   config,
   lib,
   ...
-}: {
+}:
+{
   languages.javascript = {
     enable = true;
     npm.enable = true;
@@ -71,7 +72,7 @@
     };
 
     "mksp:deploy" = {
-      after = ["mksp:deploy_validate"];
+      after = [ "mksp:deploy_validate" ];
       exec = ''
         set -eu
         docker compose up -d --build
@@ -91,7 +92,7 @@
         express-handlebars \
         nodemailer \
         nodemailer-express-handlebars \
-        fs-extra
+        node-ical
     fi
   '';
 }
